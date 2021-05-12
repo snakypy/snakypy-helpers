@@ -1,0 +1,55 @@
+[tool.poetry]
+name = "snakypy-helpers"
+version = "0.1.0"
+description = "Snakypy Helpers is a package that contains code ready to assist in the development of packages/applications so as not to replicate the code."
+authors = ["William C. Canin <https://williamcanin.github.io>"]
+license = "MIT"
+
+packages = [
+    {include = "snakypy"},
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyfiglet = "0.8.post1"
+
+[tool.poetry.dev-dependencies]
+twine = "^3.4.1"
+wheel = "^0.34.2"
+flake8 = "^3.9.2"
+tox = "^3.23.1"
+black = "^21.5b0"
+sphinx = "^4.0.0"
+sphinx-rtd-theme = "^0.5.2"
+recommonmark = "^0.7.1"
+pytest = "^6.2.4"
+pytest-runner = "^5.3.0"
+ipython = "^7.23.1"
+mypy = "^0.812"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \venv
+    | build
+    | venv
+    | dist
+    | docs
+    | tmp
+  )/
+)
+'''
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
