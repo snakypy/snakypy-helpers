@@ -7,7 +7,7 @@
   <br> Snakypy - Facilitating its development. <br>
 </h1> -->
 
-![Tests](https://github.com/snakypy/snakypy-helpers/workflows/Tests/badge.svg)
+[![Tests](https://github.com/snakypy/snakypy-helpers/workflows/Tests/badge.svg)](https://github.com/snakypy/snakypy-helpers/actions/workflows/tests.yml)
 ![Docs](https://readthedocs.org/projects/snakypy-helpers/badge/?version=latest)
 ![Pyup](https://pyup.io/repos/github/snakypy/snakypy-helpers/shield.svg)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/snakypy-helpers)
