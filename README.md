@@ -31,7 +31,7 @@
 </div>
 
 <div align="center">
-  <sub>Built with ❤︎ by
+  Built with ❤︎ by
   <a href="https://williamcanin.github.io">William Canin</a> in free time.
 </div>
 <br>
