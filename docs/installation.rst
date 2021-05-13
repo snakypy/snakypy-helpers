@@ -12,7 +12,7 @@ To install Snakypy, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install snakypy
+    $ pip install snakypy-helpers
 
 This is the preferred method to install Snakypy, as it will always install the most recent stable release.
 
