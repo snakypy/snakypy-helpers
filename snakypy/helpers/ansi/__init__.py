@@ -7,15 +7,16 @@ import sys
 
 
 def return_ansi_or_not(value: str) -> str:
-    """This function checks if the operating system is Windows, and
-    if an empty value is returned for each variable that represents a
-    color in Ansi.
+    """
+        This function checks if the operating system is Windows, and
+        if an empty value is returned for each variable that represents a
+        color in Ansi.
 
-    Arguments:
-        **value {str}** -- Receives a string in the form of Ansi color.
+    Args:
+        value (str): Receives a string in the form of Ansi color.
 
     Returns:
-        **[str]** -- It will return an Ansi scape code, or an empty string.
+        [str]: It will return an Ansi scape code, or an empty string.
     """
     if sys.platform.startswith("win"):
         return ""
