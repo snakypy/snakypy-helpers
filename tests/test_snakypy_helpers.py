@@ -1,26 +1,29 @@
 """Tests for `snakypy` package."""
+from getpass import getpass
+
 import pytest
 import os
 import snakypy
 from contextlib import suppress
 from unittest import TestCase
-from os.path import join
+from os.path import join, exists
 from sys import platform
 from unittest.mock import patch
-from snakypy.helpers.utils.decorators import only_linux
-from snakypy.helpers.files import create_file, backup_file
+from snakypy.helpers.utils.decorators import only_linux, silent_errors
+from snakypy.helpers.files import create_file, backup_file, read_file
 from snakypy.helpers.files import create_json
 from snakypy.helpers.files import read_json
 from snakypy.helpers.files import update_json
-from snakypy.helpers.os import cleaner
+from snakypy.helpers.os import cleaner, systemctl_is_active, remove_objects
 from snakypy.helpers.catches import shell, extension
 from snakypy.helpers import printer, FG, BG, SGR
-from snakypy.helpers.calcs import percentage
+from snakypy.helpers.calcs import percentage, fibonacci, compound_interest, simple_interest
 from snakypy.helpers.path import create as create_path
 from snakypy.helpers.os import rmdir_blank
 from snakypy.helpers.calcs import bmi
 from snakypy.helpers.console import cmd
 from snakypy.helpers.catches.finders import find_objects, is_tool, tools_requirements
+from snakypy.helpers.os import super_command
 
 
 def test_version():
@@ -84,40 +87,49 @@ def test_tools_requirements():
         tools_requirements("ls__")
 
 
-# def test_command_superuser():
-#     pass
-#
-#
-# def test_systemctl_is_active():
-#     pass
-#
-#
-# def test_remove_objects():
-#     pass
-#
-#
-# def test_command_superuser():
-#     pass
-#
-#
-# def test_systemctl_is_active():
-#     pass
-#
-#
-# def test_silent_errors():
-#     pass
-#
-#
-# def test_fibonacci():
-#     pass
-#
-#
-# def compound_interest():
-#     pass
-#
-#
-# def simple_interest():
-#     pass
+# def test_super_command(base):
+#     test_create_file(base)
+#     path = join(base["tmp"], base["files"][0])
+#     super_command(f"chmod 000 {path}")
+#     with pytest.raises(PermissionError):
+#         read_file(path)
+
+
+def test_systemctl_is_active():
+    ret = systemctl_is_active("systemd-udevd.service")
+    if "inactive" or "active" in ret[0]:
+        assert True
+
+
+def test_remove_objects(base):
+    test_create_file(base)
+    os.mkdir(join(base["tmp"], "temp_dir"))
+    obj = (join(base["tmp"], base["files"][0]), join(base["tmp"], "temp_dir"))
+    remove_objects(objects=obj)
+    if not exists(join(base["tmp"], "temp_dir")) and not exists(join(base["tmp"], base["files"][0])):
+        assert True
+    else:
+        assert False
+
+
+@silent_errors
+def test_silent_errors():
+    assert 1 != 1
+
+
+def test_fibonacci():
+    assert fibonacci(50) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+    assert fibonacci(50, ret_text=True) == '0 1 1 2 3 5 8 13 21 34'
+
+
+def test_compound_interest():
+    assert compound_interest(2455, 12, 1) == {'amount': 2766.36, 'fess': 311.36}
+    assert compound_interest(2455, 12, 1, ret_text=True) == 'The amount was: $ 2766.36. The fees were: $ 311.36.'
+
+
+def test_simple_interest():
+    assert simple_interest(2455, 12, 1) == {'amount': 2749.6, 'fess': 294.6}
+    assert simple_interest(2455, 12, 1, ret_text=True) == 'The amount was: $ 2749.60. The fees were: $ 294.60.'
 
 
 def test_cleaner_successfully(base):
@@ -289,3 +301,4 @@ class TestBakeProject(TestCase):
     def test_entry_not_set_question(self, fn):
         with pytest.raises(TypeError):
             fn()
+
