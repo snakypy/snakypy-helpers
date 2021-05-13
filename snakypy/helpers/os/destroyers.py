@@ -77,10 +77,6 @@ def cleaner(directory, *file: Any, level: int = 0) -> int:
                                file exclusion option as well, however, it will exclude all \
                                subdirectories of the root directory, except the files contained \
                                in the root.
-
-
-                               (default: -1)
-
     """
 
     data = next(walk(directory))
