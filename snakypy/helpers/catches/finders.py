@@ -7,7 +7,8 @@ from snakypy.helpers.utils.decorators import only_linux
 def find_objects(
     directory: str, /, files: tuple = (), folders: tuple = (), by_extension: tuple = ()
 ) -> dict:
-    """Find files, folders and files through its extensions.
+    """
+    Find files, folders and files through its extensions.
 
     >>> from snakypy import helpers
     >>> helpers.catches.find_objects(".", files=("mypi.ini",), folders=("snakypy",), by_extension=("txt",))
@@ -90,7 +91,7 @@ def tools_requirements(*args) -> bool:
         True
 
     Args:
-        *args: You must receive the name of the tool to be searched on the machine. You can pass as many as you want.
+        args: You must receive the name of the tool to be searched on the machine. You can pass as many as you want.
 
     Returns:
         Returns true or an exception.
