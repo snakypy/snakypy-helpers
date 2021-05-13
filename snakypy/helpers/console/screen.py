@@ -1,6 +1,9 @@
+import time
+import sys
 from typing import Union, Any
 from snakypy.helpers.utils import decorators
 from snakypy.helpers.ansi import NONE, FG, BG, SGR
+from subprocess import Popen, PIPE
 
 
 def attr_foreground_background_sgr(*args) -> None:
@@ -8,8 +11,8 @@ def attr_foreground_background_sgr(*args) -> None:
     Checks if the attributes of the functions that the foreground
     and background parameters are in accordance with their respective class.
 
-    Arguments:
-        args {str} -- It receives a certain number of arguments with an ansi code value.
+    Args:
+        args (str): It receives a certain number of arguments with an ansi code value.
     """
     if args[0] and args[0] not in FG.__dict__.values():
         raise AttributeError(
@@ -40,28 +43,29 @@ def printer(
 
     >>> from snakypy.helpers import printer, FG, BG, SGR
     >>> printer('Hello, World!', foreground=FG.BLACK, background=BG.WHITE, sgr=SGR.UNDERLINE)
+    Hello, World!
+    ('Hello, World!',)
     >>> printer('Hello, World!', foreground=FG.MAGENTA, sgr=SGR.UNDERLINE)
+    Hello, World!
+    ('Hello, World!',)
 
-    Keyword Arguments:
-        **foreground {str}** -- This named argument should optionally receive \
-                            an object of class "snakypy.ansi.FG" for the foreground \
-                            color of the text. This object will be text with ansi code. \
-                            (default: '')
+    Args:
+        foreground (str): This named argument should optionally receive an object of class "snakypy.ansi.FG" for
+                          the foreground color of the text. This object will be text with ansi code. (default: '')
 
-        **background {str}** -- This named argument should optionally receive \
-                            an object of class "snakypy.ansi.BG" for the background \
-                            color of the text. This object will be text with ansi code. \
-                            (default: '')
+        background (str): This named argument should optionally receive an object of class "snakypy.ansi.BG" for
+                          the background color of the text. This object will be text with ansi code. (default: '')
 
-        **sgr {str}** -- This named argument should optionally receive \
-                     an object of class "snakypy.ansi.SGR" for the effect \
-                     of the text. This object will be text with ansi code. \
-                     (default: '')
+        sgr (str): This named argument should optionally receive an object of class "snakypy.ansi.SGR" for the effect
+                     of the text. This object will be text with ansi code. (default: '')
 
-        **sep {str}** -- Separator between printer function objects. (default: {' '}) \
+        sep (str): Separator between printer function objects. (default: {' '})
 
-        **end {str}** -- Responsible for skipping a line after printing is finished. \
-                         (default: '[bar]n')
+        end (str): Responsible for skipping a line after printing is finished. (default: "\n")
+
+        file (Any):
+
+        flush (bool):
     """
 
     attr_foreground_background_sgr(foreground, background, sgr)
@@ -94,43 +98,40 @@ def entry(
     jump_line: str = "\n> ",
 ) -> str:
     """
-    This function is derived from the input, but with the option of
-    coloring it and some different formatting.
-    Note: If you use Windows, the coloring option will not work.
-
-    >>> import snakypy
-    >>> snakypy.helpers.console.screen.entry("What's your name?", foreground=FG.QUESTION)
-    >>> snakypy.helpers.console.screen.entry("What's your name?", foreground=FG.BLUE)
-    >>> snakypy.helpers.console.screen.entry("What's your name?", foreground=FG.GREEN)
-
-    or using from
+        This function is derived from the input, but with the option of
+        coloring it and some different formatting.
+        Note: If you use Windows, the coloring option will not work.
 
     >>> from snakypy.helpers import entry, FG
     >>> entry("What's your name?", foreground=FG.QUESTION)
+    ➜ What's your name?
+    > 'snakypy'
     >>> entry("What's your name?", foreground=FG.BLUE)
+    ➜ What's your name?
+    > 'snakypy'
     >>> entry("What's your name?", foreground=FG.GREEN)
+    ➜ What's your name?
+    > 'snakypy'
 
-    Arguments:
-        **text {object}** -- Argument must receive an object
+    Args:
+        text (object): Argument must receive an object
 
-    Keyword Arguments:
-
-        **foreground {str}** -- This named argument should optionally receive \
+        foreground (str): This named argument should optionally receive \
                             an object of class "snakypy.ansi.FG" for the foreground \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
-        background {str} -- This named argument should optionally receive \
+        background (str):  This named argument should optionally receive \
                             an object of class "snakypy.ansi.BG" for the background \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
-        **sgr {str}** -- This named argument should optionally receive \
+        sgr (str): This named argument should optionally receive \
                          an object of class "snakypy.ansi.SGR" for the effect \
                          of the text. This object will be text with ansi code. \
                          (default: '')
 
-        **jump_line {str}** -- Named argument that makes the action of skipping a line \
+        jump_line (str): Named argument that makes the action of skipping a line \
                            and adding a greater sign to represent an arrow. You change \
                            that argument to your liking. (default: '[bar]n> ') \
 
@@ -220,31 +221,32 @@ def pick(
         Answer: 5
         'python'
 
-    Arguments:
-        **title {str}** - You should receive a text that will be the \
+    Args:
+        title (str): - You should receive a text that will be the \
                        title or the question with meaning in the alternatives.
 
-        **options {list}** - You should receive a list with certain elements \
+        options (list): - You should receive a list with certain elements \
                           that will be part of the menu options.
 
-    Keyword Arguments:
-        **answer {str}** -- The text that will be shown before entering the answer. \
+        answer (str): -- The text that will be shown before entering the answer. \
                         You can change to your language. (default: {'Answer:'})
 
-        **index {bool}** -- This argument for True, will return a tuple, where element 0, \
+        index (bool): This argument for True, will return a tuple, where element 0, \
                         will be the index of the option that the user chose, and \
                         element 1 of the tuple, will be the name of the choice option. \
                         Remember that the indexing of the menu is not the same as the \
                         list of options because it starts with zero (0). \
                         (default: {False})
 
-        **colorful {bool}** -- If it has True, the menu color will be active, but it only \
+        colorful (bool): If it has True, the menu color will be active, but it only \
                            works if it is on a UNIX system, as the color uses Ansi Color. \
                            If have Windows, no effect will appear. \
                            (default: {False})
 
-        **lowercase {bool}** -- If set to True, the text value returned from the chosen \
+        lowercase (bool) If set to True, the text value returned from the chosen \
                             option will be lowercase.
+
+        ctrl_c_message (bool): If you are in True value, it shows the text (Ctrl + C to Cancel) in the header.
     """
 
     if not type(options) is list:
@@ -283,35 +285,34 @@ def billboard(
     justify: str = "auto",
 ) -> Union[str, tuple]:
     """
-    Creates a Billboard in the terminal.
+        Creates a Billboard in the terminal.
 
     >>> from snakypy.helpers.console import billboard
     >>> from snakypy.helpers import FG, BG
     >>> billboard('Hello, Snakypy!')
     >>> billboard('Hello, Snakypy!', foreground=FG.BLUE, background=BG.WHITE)
 
-    Arguments:
-        **text {str}** -- Any text must be informed.
+    Args:
+        text (str): Any text must be informed.
 
-    Keyword Arguments:
-        **foreground {str}** -- This named argument should optionally receive \
+        foreground (str): -- This named argument should optionally receive \
                             an object of class "snakypy.ansi.FG" for the foreground \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
-        **background {str}** -- This named argument should optionally receive \
+        background (str): This named argument should optionally receive \
                             an object of class "snakypy.ansi.BG" for the background \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
-        **ret_text {bool}** -- Receives a Boolean value. If the value is True, it will only \
+        ret_text (bool): Receives a Boolean value. If the value is True, it will only \
                                return the text. If the value is False, it will resume printing.
 
-        **justify {str}** -- Justify the position of the text: auto | center | right. \
+        justify (str): -- Justify the position of the text: auto | center | right. \
                              (default: 'auto')
 
     Returns:
-        **[str]** -- The text informed in billboard form.
+        [str]: The text informed in billboard form.
     """
     import pyfiglet
 
@@ -334,33 +335,30 @@ def cmd(
     verbose: bool = False,
 ) -> int:
     """
-    Function that uses the subprocess library with Popen.
-    The function receives a command as an argument and shows
-    execution in real time.
+        Function that uses the subprocess library with Popen.
+        The function receives a command as an argument and shows
+        execution in real time.
 
-    >>> from snakypy.helpers.console import cmd
-    >>> url = 'git clone https://github.com/snakypy/snakypy.git'
-    >>> cmd(url, verbose=True)
+        >>> from snakypy.helpers.console import cmd
+        >>> url = 'git clone https://github.com/snakypy/snakypy.git'
+        >>> cmd(url, verbose=True)
 
-    Arguments:
-        **command {str}** -- Must inform the command to be executed.
+    Args:
+        command (str): Must inform the command to be executed.
 
-    Keyword Arguments:
-        **shell {bool}** -- Receives a Boolean value. If it has False, the command must be in list where
+        shell (bool): Receives a Boolean value. If it has False, the command must be in list where
                             the command space is split. **E.g:** ['ls', '/bin']. If the value is True, the command
                             can be stored in a string normal. **E.g:** 'ls /bin'
 
-        **ret {bool}** -- The default value is False, however if it is set to True it will \
+        ret (bool): The default value is False, however if it is set to True it will \
                       return a code status of the command output, where the code 0 (zero), \
                       is output without errors. \
 
-        **verbose {bool}** -- The default value is False, if you change it to True, the command \
+        verbose (bool): The default value is False, if you change it to True, the command \
                           will show in real time the exit at the terminal, if there is an exit. \
     Returns:
         A negative integer will return if everything is right, or the value of the process.
     """
-    from subprocess import Popen, PIPE
-
     process = Popen(
         command, shell=shell, stdout=PIPE, universal_newlines=universal_newlines
     )
@@ -381,7 +379,7 @@ def credence(
     column: int = 80,
 ) -> None:
     """
-    Print project development credits.
+        Print project development credits.
 
     >>> from snakypy.helpers.console import credence
     >>> content = {
@@ -399,14 +397,14 @@ def credence(
             }
         ]
     }
-    >>> credence('Snakypy', '0.4.0', 'https://github.com/snakypy/snakypy', content)
+    >>> credence('Snakypy', '0.1.0', 'https://github.com/snakypy/snakypy', content)
 
     **output:**
 
     .. code-block:: shell
 
         ---------------------------------------------------------
-                       Snakypy - Version 0.3.7
+                       Snakypy - Version 0.1.0
         ---------------------------------------------------------
 
                               Credence:
@@ -420,29 +418,26 @@ def credence(
                       Email: example@domain.com
                          Locale: Brazil - SP
 
-        ---------------------------------------------------------
-                    Snakypy © 2020 - All Right Reserved.
-                Home: https://github.com/snakypy/snakypy
-        ---------------------------------------------------------
+        -----------------------------------------------------------------
+                    Snakypy Helpers © 2021 - All Right Reserved.
+                    Home: https://github.com/snakypy/snakypy-helpers
+        -----------------------------------------------------------------
 
-    Arguments:
-        app_name {str} -- Put application name.
+    Ars:
+        app_name (str): Put application name.
 
-        app_version {str} -- Application version.
+        app_version (str): Application version.
 
-        app_url {str} -- Application or website url.
+        app_url (str): Application or website url.
 
-        data {dict} -- You must receive a dictionary containing a key called "credence".
-                       E.g: data = {'credence': []}
+        data (dict): You must receive a dictionary containing a key called "credence". E.g: data = {'credence': []}
 
-    Keyword Arguments:
-        **foreground {str}** -- This named argument should optionally receive \
+        foreground (str): This named argument should optionally receive \
                             an object of class "snakypy.ansi.FG" for the foreground \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
-        **column {int}** -- Justify the position of the credits through the columns \
-                          using an integer. (default: 80)
+        column (int): Justify the position of the credits through the columns using an integer. (default: 80)
     """
 
     from datetime import date
@@ -490,27 +485,19 @@ def loading(
     header: str = "[Loading]",
     foreground: str = "",
 ) -> None:
-    """Function will show animated logging in percentage and bar style.
+    """
+    Function will show animated logging in percentage and bar style.
 
     >>> from snakypy.helpers.console import loading
     >>> loading()
-
-    Using bar instead of percentage and setting the time (Default: set_time=0.030):
-
     >>> loading(set_time=0.20, bar=True)
 
-    Keyword Arguments:
+    set_time (float): Time when the animation will last. (default: {0.030})
 
-        **set_time {float}** -- Time when the animation will last. (default: {0.030})
+    bar (bool): If True, the animation will be barred and not percentage. (default: {False})
 
-        **bar {bool}** -- If True, the animation will be barred and not percentage. (default: {False})
-
-        **header {str}** -- Modifies the animation header (default: {'[Loading]'})
+    header (str): Modifies the animation header (default: {'[Loading]'})
     """
-
-    import time
-    import sys
-
     # denying_win(foreground)
     printer(header, foreground=foreground)
     try:

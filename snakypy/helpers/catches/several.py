@@ -12,15 +12,9 @@ def whoami() -> str:
     """
         Get the currently logged in user.
 
-        >>> import snakypy
-        >>> snakypy.helpers.catches.whoami()
-        >>> 'william'
-
-        or using from
-
-        >>> from snakypy.helpers.catches import whoami
-        >>> whoami()
-        >>> 'william'
+        >>> from snakypy import helpers
+        >>> helpers.catches.whoami()
+        'william'
 
     Returns:
          [str] -- Returns the name of the current user.
@@ -33,15 +27,9 @@ def shell() -> str:
     """
     Function to get the currently activated shell.
 
-    >>> import snakypy
-    >>> snakypy.helpers.catches.shell()
-    >>> 'sh'
-
-    or
-
-    >>> from snakypy.helpers.catches import shell
-    >>> shell()
-    >>> 'sh'
+    >>> from snakypy import helpers
+    >>> helpers.catches.shell()
+    'sh'
 
     Returns:
         [str] -- Returns the name of the current shell.
@@ -58,38 +46,32 @@ def shell() -> str:
 def extension(filename: str, dots: bool = False) -> str:
     """Get a file extension
 
-    >>> import snakypy
+    >>> from snakypy import helpers
     >>> file = '/tmp/file.tar.gz'
-    >>> snakypy.helpers.catches.extension(file)
-    >>> snakypy.helpers.catches.extension(file, dots=True)
+    >>> helpers.catches.extension(file)
+    '.gz'
+    >>> helpers.catches.extension(file, dots=True)
+    'tar.gz'
 
     or using from
 
     >>> from snakypy.helpers.catches import extension
     >>> file = '/tmp/file.tar.gz'
     >>> extension(file)
+    '.gz'
     >>> extension(file, dots=True)
+    'tar.gz'
 
-    **output:**
+    Args:
+        filename (str): Receives the file name or its full path
 
-    .. code-block:: shell
-
-        'gz'
-        '.tar.gz'
-
-    Arguments:
-        **filename {str}** -- Receives the file name or its full path
-
-    Keyword Arguments:
-        **dots {bool}** -- If it is True, I return the extension from the first \
-                            point found, that is, if the file has more than one point, \
-                            the first one will be the capture point, otherwise it will \
-                            take the last point found. (Default: {False})
+        dots (bool): If it is True, I return the extension from the first point found, that is, if the file has
+                     more than one point, the first one will be the capture point, otherwise it will take the last
+                     point found. (Default: False)
 
     Returns:
         [object] -- Returns a string containing the extension or None.
     """
-
     if dots:
         m = re.search(r"(?<=[^/\\]\.).*$", filename)
         if not m:

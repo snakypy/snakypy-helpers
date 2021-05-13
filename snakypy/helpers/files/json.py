@@ -7,21 +7,15 @@ def read_json(file_path: str) -> dict:
     """
     Function that reads JSON configuration file and returns data.
 
-    >>> import snakypy
+    >>> from snakypy import helpers
     >>> file = '/tmp/file.json'
-    >>> snakypy.helpers.files.read_json(file)
+    >>> helpers.files.read_json(file)
 
-    or using from
-
-    >>> from snakypy.helpers.files import read_json
-    >>> file = '/tmp/file.json'
-    >>> read_json(file)
-
-    Arguments:
-        **file_path {str}** -- You must receive the full/absolute file path.
+    Args:
+        file_path (str): You must receive the full/absolute file path
 
     Returns:
-        [dict] -- If the file is found it will return a dictionary
+        [dict]: If the file is found it will return a dictionary
     """
 
     try:
@@ -44,29 +38,20 @@ def create_json(dictionary: dict, file_path: str, force: bool = False) -> bool:
     """
     Create a JSON file through a dictionary.
 
-    >>> import snakypy
-    >>> dic = {'msg': 'Hello, Snakypy!'}
-    >>> snakypy.helpers.files.create_json(dic, '/tmp/file.json')
-    >>> snakypy.helpers.files.create_json(dic, '/tmp/file.json', force=True)
+    >>> from snakypy import helpers
+    >>> content = {"Hello": "World!"}
+    >>> helpers.files.create_json(content, "/tmp/file.json", force=True)
+    True
 
-    or using from
+    Args:
+        dictionary (dict): Must receive a dictionary
 
-    >>> from snakypy.helpers.files import create_json
-    >>> dic = {'msg': 'Hello, Snakypy!'}
-    >>> create_json(dic, '/tmp/file.json')
-    >>> create_json(dic, '/tmp/file.json', force=True)
+        file_path (str): You must receive the full/absolute file path.
 
-    Arguments:
-        **dictionary {dict}** -- Must receive a dictionary
-
-        **file_path {str}** -- You must receive the full/absolute file path.
-
-    Keyword Arguments:
-        **force {bool}** -- Use the True option if you want to overwrite the existing file. \
-                            (default: {False})
+        force (bool): Use the True option if you want to overwrite the existing file. (default: {False})
 
     Returns:
-        **[bool]** -- If everything went well, it will return True.
+        [bool]: If everything went well, it will return True.
     """
 
     if splitext(file_path)[1] != ".json":
@@ -95,25 +80,19 @@ def update_json(file_path: str, content: dict) -> bool:
     Function to update json file. The "snakypy.json.read" function depends on
     reading a json file.
 
-    >>> import snakypy
-    >>> data = snakypy.helpers.files.read_json('/tmp/file.json')
-    >>> data['msg'] = 'Olá, Snakypy!'
-    >>> snakypy.helpers.files.update_json('/tmp/file.json', data)
+    >>> from snakypy import helpers
+    >>> data = helpers.files.read_json('/tmp/file.json')
+    >>> data['Hello'] = 'Olá, Snakypy!'
+    >>> helpers.files.update_json('/tmp/file.json', data)
+    True
 
-    or using from
+    Args:
+        file_path (str): You must receive the full/absolute file path.
 
-    >>> from snakypy.helpers.files import read_json, update_json
-    >>> data = read_json('/tmp/file.json')
-    >>> data['msg'] = 'Olá, Snakypy!'
-    >>> update_json('/tmp/file.json', data)
+        content (dict): You should receive a dictionary with the updated data already.
 
-    Arguments:
-        **file_path {str}** -- You must receive the full/absolute file path.
-
-        **content {dict}** -- You should receive a dictionary with the updated data \
-                              already.
     Returns:
-        **[bool]** -- If everything went well, it will return True.
+        [bool]: If everything went well, it will return True.
     """
     try:
         if type(content) is dict:

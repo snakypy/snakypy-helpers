@@ -9,31 +9,19 @@ def find_objects(
 ) -> dict:
     """Find files, folders and files through its extensions.
 
-    >>> import snakypy
-    >>> snakypy.helpers.catches.find_objects("/tmp", files=("file.txt",), folders=("snakypy",), by_extension=("txt",))
+    >>> from snakypy import helpers
+    >>> helpers.catches.find_objects(".", files=("mypi.ini",), folders=("snakypy",), by_extension=("txt",))
+    {'files': [], 'folders': [], 'by_extension': []}
 
-    or using from
+    Args:
+        directory (str): Enter the path of the root directory for the search
 
-    >>> from snakypy.helpers.catches import find_objects
-    >>> find_objects("/tmp", files=("file.txt",), folders=("snakypy",), by_extension=("py",))
+        files (tuple): You should receive a tuple and enter only the name of the file together with its extension
 
-    **output:**
+        folders (tuple): You should receive a tuple and enter only the name of the folder
 
-    .. code-block:: shell
-
-        {'files': ['/tmp/file.txt', '/tmp/foo.txt'], 'folders': ['/tmp/snakypy'],
-        'extension': ['/tmp/snakypy.py', '/tmp/bar.py']}
-
-    Arguments:
-        **directory {str}** -- Enter the path of the root directory for the search
-
-        **files {tuple}** -- You should receive a tuple and enter only the name of the
-                             file together with its extension
-
-        **folders {tuple}** -- You should receive a tuple and enter only the name of the folder
-
-        **by_extension {tuple}** -- You should receive a tuple and inform the extensions
-                                    (without periods) of the files you want to search for.
+        by_extension (tuple): You should receive a tuple and inform the extensions (without periods) of the files
+                              you want to search for.
 
     Returns:
         [dict] -- It will return a dictionary with the following structure:
@@ -72,26 +60,16 @@ def find_objects(
 
 @only_linux
 def is_tool(*args: str) -> bool:
-    """Searches if a tool is installed on the machine. (Linux systems only)
+    """
+        Searches if a tool is installed on the machine. (Linux systems only)
 
-    >>> import snakypy
-    >>> snakypy.helpers.catches.is_tool("ls")
-
-    or using from
-
-    >>> from snakypy.helpers.catches import is_tool
-    >>> is_tool("ls")
-
-    **output:**
-
-    .. code-block:: shell
-
+        >>> from snakypy import helpers
+        >>> helpers.catches.is_tool("ls")
         True
 
-    Arguments:
-        **args {str}** -- You must enter the name of the application you want to search for.
-                          You can pass as many parameters as you want, however, if you don't
-                          find one, the return will be False.
+    Args:
+        args (str): You must enter the name of the application you want to search for. You can pass as many
+                    parameters as you want, however, if you don't find one, the return will be False.
 
     Returns:
         [bool] -- Returns True if all are found or False if none or none are not found.
@@ -104,6 +82,19 @@ def is_tool(*args: str) -> bool:
 
 @only_linux
 def tools_requirements(*args) -> bool:
+    """
+        Search required tools if you can not burst an exception
+
+        >>> from snakypy import helpers
+        >>> helpers.catches.tools_requirements("ls", "cat", "chmod")
+        True
+
+    Args:
+        *args: You must receive the name of the tool to be searched on the machine. You can pass as many as you want.
+
+    Returns:
+        Returns true or an exception.
+    """
     for tool in args:
         if which(tool) is None:
             raise FileNotFoundError(

@@ -73,26 +73,18 @@ def bmi(sex: str, weight: float, height: float) -> str:
 
     >>> from snakypy.helpers.calcs import bmi
     >>> bmi('m', 60, 1.73)
+    'Under weight.'
 
-    **output:**
+    Args:
+        sex (str): You must receive a string with a single character.
+             The string must be either "m" for "male" or "f" for "female"
 
-    .. code-block:: shell
+        weight (float): You should receive a float, this is where you put the weight
 
-        'Under weight.'
-
-    Arguments:
-        **sex {str}** -- You must receive a string with a single character. \
-                     The string must be either "**m**" for "male" or "**f**" for "female"
-
-        **weight {float}** -- You should receive a float, this is where you put the \
-                          weight. **E.g:** 60.4
-
-        **height {float}** -- You should receive a float, this is where you put the \
-                          height. **E.g:** 1.73
+        height (float): You should receive a float, this is where you put the height
 
     Returns:
-        **[object]** -- The return will be a string informing the result or a false Boolean, \
-                    if the arguments are wrong.
+        The return will be a string informing the result or a false Boolean, if the arguments are wrong.
     """
 
     return BMI(sex, weight, height).main()
