@@ -51,17 +51,17 @@ def printer(
 
     Args:
         foreground (str): This named argument should optionally receive an object of class "snakypy.ansi.FG" for
-                          the foreground color of the text. This object will be text with ansi code. (default: '')
+                          the foreground color of the text. This object will be text with ansi code.
 
         background (str): This named argument should optionally receive an object of class "snakypy.ansi.BG" for
-                          the background color of the text. This object will be text with ansi code. (default: '')
+                          the background color of the text. This object will be text with ansi code.
 
         sgr (str): This named argument should optionally receive an object of class "snakypy.ansi.SGR" for the effect
-                     of the text. This object will be text with ansi code. (default: '')
+                     of the text. This object will be text with ansi code.
 
-        sep (str): Separator between printer function objects. (default: {' '})
+        sep (str): Separator between printer function objects.
 
-        end (str): Responsible for skipping a line after printing is finished. (default: "\n")
+        end (str): Responsible for skipping a line after printing is finished.
 
         file (Any):
 
