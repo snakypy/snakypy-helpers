@@ -2,29 +2,26 @@ import os
 import platform
 from contextlib import suppress
 from functools import wraps
-from typing import Any, Union
+from typing import Any
 from datetime import datetime
 
 
 def denying_os(os_name) -> Any:
-    """Decorator to ban an operating system from software through os.name.
+    """
+    Decorator to ban an operating system from software through os.name.
 
-    >>> import snakypy
-    >>> @snakypy.helpers.utils.decorators.denying_os("posix")
-    >>> def foo(): print("Hi")
-    >>> foo()
+    .. code-block:: python
 
-    or using from
+        from snakypy.helpers.utils.decorators import denying_os
 
-    >>> from snakypy.helpers.utils.decorators import denying_os
-    >>> @denying_os("posix")
-    >>> def foo(): print("Hi")
-    >>> foo()
+        @denying_os("nt")
+        def foo():
+            print("Hi")
 
-    Arguments:
-        **os_name** {str} - You must receive the os.name of the operating system to be banned.
-                            Windows = nt
-                            Linux/Mac OS = posix
+    Args:
+        os_name (str): You must receive the os.name of the operating system to be banned.
+                       Windows = nt
+                       Linux/Mac OS = posix
     """
 
     def decorator(func: Any) -> Any:
@@ -44,20 +41,16 @@ def only_linux(func: Any) -> Any:
     """
     A decorator to force a function or method to run on Unix systems only.
 
-    Arguments:
-        **func (Any):** Must be assigned a role.
+    .. code-block:: python
 
-    >>> import snakypy
-    >>> @snakypy.helpers.utils.decorators.only_linux
-    >>> def foo(): print("Hi")
-    >>> foo()
+        from snakypy.helpers.utils.decorators import only_linux
 
-    or using from
+        @only_linux
+        def foo():
+            print("Hi")
 
-    >>> from snakypy.helpers.utils.decorators import only_linux
-    >>> @only_linux
-    >>> def foo(): print("Hi")
-    >>> foo()
+    Args:
+        func (Any): Must be assigned a role.
     """
 
     @wraps(func)
@@ -75,7 +68,20 @@ def only_linux(func: Any) -> Any:
 
 
 def runtime(func: Any) -> Any:
-    """Decorator to test runtime others functions.
+    """
+        Decorator to test runtime others functions.
+
+        .. code-block:: python
+
+            from snakypy.helpers.utils.decorators import runtime
+            from time import sleep
+
+            @runtime
+            def foo():
+                for i in range(20):
+                    sleep(0.050)
+                    print(i)
+            foo()
 
     Returns:
         str: Return print
@@ -92,6 +98,24 @@ def runtime(func: Any) -> Any:
 
 
 def silent_errors(func: Any) -> Any:
+    """
+        Decorator for functions to silence errors
+
+        .. code-block:: python
+
+            from snakypy.helpers.utils.decorators import silent_errors
+
+            @silent_errors
+            def foo():
+                return [1, 2, 3][4]
+
+            foo()
+
+
+    Returns:
+        Returns the data of the decorated function if it does not get into errors
+    """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         with suppress(Exception):
