@@ -5,13 +5,25 @@ from concurrent.futures import ThreadPoolExecutor
 from os import walk, remove
 from os.path import join
 from shutil import rmtree
+from typing import Any
 
 
-def remove_objects(*, objects: tuple = ()) -> tuple:
+def remove_objects(*, objects: tuple = ()) -> None:
+    """
+        Removes files or folders.
+
+        >>> from snakypy.helpers.os import remove_objects
+        >>> remove_objects(objects=("/tmp/folder", "/tmp/file.txt"))
+
+    Args:
+        objects (tuple): It must receive the path of the object, folders or files.
+
+    Returns:
+        None
+    """
     with suppress(FileNotFoundError):
         for item in objects:
             rmtree(item, ignore_errors=True) if isdir(item) else remove(item)
-    return objects
 
 
 def rmdir_blank(path: str) -> None:
@@ -19,13 +31,8 @@ def rmdir_blank(path: str) -> None:
     Removes folders recursively if they are empty from a
     certain path.
 
-    >>> import snakypy
-    >>> snakypy.helpers.os.rmdir_blank("/tmp/program_x")
-
-    or using from
-
-    >>> from snakypy.helpers.os import rmdir_blank
-    >>> rmdir_blank("/tmp/program_x")
+    >>> from snakypy import helpers
+    >>> helpers.os.rmdir_blank("/tmp/program_x")
 
     Args:
         path (str): Must receive a string in the form of path.
@@ -41,70 +48,63 @@ def rmdir_blank(path: str) -> None:
                     raise Exception("It was not possible to clean empty folders.")
 
 
-def cleaner(directory, *file, level=-1) -> int:
+def cleaner(directory, *file: Any, level: int = 0) -> int:
     """
-    **DANGER!** A function for cleaning objects and folders on the system.
+        **DANGER!** A function for cleaning objects and folders on the system.
 
-    E.g:
+        >>> from snakypy import helpers
+        >>> helpers.os.cleaner("/tmp/foo", level=1)
+        1
+        >>> helpers.os.cleaner("/tmp/foo", level=2)
+        2
+        >>> helpers.os.cleaner("/tmp/foo", "bar.txt")
 
-    >>> import snakypy
-    >>> snakypy.helpers.os.cleaner("/tmp/foo", level=0)
-    >>> snakypy.helpers.os.cleaner("/tmp/foo", level=1)
-    >>> snakypy.helpers.os.cleaner("/tmp/foo", "bar.txt")
+        Args:
+            directory (str): Directory where are the files to be destroyed
 
-    or using from
+            file (Any): Enter an N file name number (Optional)
 
-    >>> from snakypy.helpers.os import cleaner
-    >>> cleaner("/tmp/foo", level=0)
-    >>> cleaner("/tmp/foo", level=1)
-    >>> cleaner("/tmp/foo", "bar.txt")
+            level (int): This option receives 3 values, they are: \
 
-    Arguments:
-        **directory {str}** -- Directory where are the files to be destroyed
+                               Value 0 = If this value is set, the function must receive at least \
+                               one file name to be deleted. Can pass as many files as you want.
 
-        ***file** -- Enter an N file name number (Optional)
+                               Value 1 = If this value is set, the function revokes the \
+                               unitary file exclusion option, that is, this option will \
+                               exclude all files at the root of the informed directory.
 
-    Keyword Arguments:
-        **level {int}** -- This option receives 3 values, they are: \
+                               Value 2 = If this value is set, the function revokes the unitary \
+                               file exclusion option as well, however, it will exclude all \
+                               subdirectories of the root directory, except the files contained \
+                               in the root.
 
-                           Value 0 = If this value is set, the function revokes the \
-                           unitary file exclusion option, that is, this option will \
-                           exclude all files at the root of the informed directory.
 
-                           Value 1 = If this value is set, the function revokes the unitary \
-                           file exclusion option as well, however, it will exclude all \
-                           subdirectories of the root directory, except the files contained \
-                           in the root.
-
-                           Value None = If this value is set, the function must receive at least \
-                           one file name to be deleted. Can pass as many files as you want.
-
-                           (default: {None})
+                               (default: -1)
 
     """
 
     data = next(walk(directory))
 
     #: DANGER!
-    if level == 0:
+    if level == 1:
         for f in data[2]:
             remove(join(data[0], f))
-        return 0
+        return 1
 
     #: DANGER!
-    if level == 1:
+    if level == 2:
         # r: root, r: directory, f: files
         for r, d, f in walk(directory, topdown=False):
             for item in d:
                 with ThreadPoolExecutor() as executor:
                     executor.submit(rmtree, join(r, item))
-        return 1
+        return 2
 
     try:
         if file:
             for f in file:
                 remove(join(data[0], f))
-        return -1
+        return 0
     except FileNotFoundError as err:
         msg = ">>> There was an error removing the files"
         raise FileNotFoundError(msg, err)
