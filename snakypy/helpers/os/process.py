@@ -12,7 +12,8 @@ def super_command(command: str) -> Union[Optional[str], None]:
         Allows to execute superuser command in shell.
 
         >>> from snakypy.helpers.os import super_command
-        >>> super_command("cat /etc/passwd")
+        >>> super_command("python --version | cut -d' ' -f1")
+        ''
 
     Args:
         command (str): The command statement to be executed.
@@ -22,7 +23,7 @@ def super_command(command: str) -> Union[Optional[str], None]:
     """
     try:
         while True:
-            sudo_password = getpass()
+            super_password = getpass()
             command_str = f"su -c '{command}';"
             p = Popen(
                 command_str,
@@ -32,13 +33,13 @@ def super_command(command: str) -> Union[Optional[str], None]:
                 universal_newlines=True,
                 shell=True,
             )
-            communicate = p.communicate(sudo_password)
+            communicate = p.communicate(super_password)
 
-            if "failure" in communicate[1].split():
+            if "failure" not in communicate[1].split():
                 return communicate[0]
-            print("Password incorrect.")
+            printer("Password incorrect.", foreground=FG.WARNING)
     except KeyboardInterrupt:
-        print("Aborted by user.")
+        printer("Aborted by user.", foreground=FG.WARNING)
         return None
 
 
@@ -46,6 +47,11 @@ def super_command(command: str) -> Union[Optional[str], None]:
 def systemctl_is_active(service: str) -> Union[tuple, None]:
     """
         Checks whether a service is active or inactive in the operating system through SystemD.
+
+        >>> from snakypy.helpers.os import systemctl_is_active
+        >>> systemctl_is_active("systemd-udevd.service")
+        ('active', None)
+
     Args:
         service (str): You must inform the name of the service, with its extension. Example: cronie.service
 
