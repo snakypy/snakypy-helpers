@@ -301,4 +301,3 @@ class TestBakeProject(TestCase):
     def test_entry_not_set_question(self, fn):
         with pytest.raises(TypeError):
             fn()
-
