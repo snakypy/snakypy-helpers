@@ -5,22 +5,13 @@ def create(*args: str) -> None:
     """
     Function that creates single or multiple directories.
 
-    E.g:
-
-    >>> import snakypy
-    >>> dirs = ("/tmp/foo/bar", "/tmp/foo/xyz")
-    >>> snakypy.helpers.path.create("/tmp/bar", "/tmp/bar/foo")
-    >>> snakypy.helpers.path.create(*dirs)
-
-    or using from
-
     >>> from snakypy.helpers.path import create
     >>> dirs = ("/tmp/foo/bar", "/tmp/foo/xyz")
     >>> create("/tmp/bar", "/tmp/bar/foo")
     >>> create(*dirs)
 
     Arguments:
-        **args {str}** -- You must receive one or more unique arguments.
+        args (str): You must receive one or more unique arguments.
     """
     try:
         # Create directory single.
