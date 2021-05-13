@@ -12,7 +12,7 @@
 #
 import os
 import sys
-import snakypy
+from snakypy import helpers
 sys.path.insert(0, os.path.abspath('.'))
 
 
@@ -23,7 +23,7 @@ copyright = '2021, William C. Canin'
 author = 'William C. Canin'
 
 # The full version, including alpha/beta/rc tags
-release = snakypy.__info__["version"]
+release = helpers.__info__["version"]
 
 
 # -- General configuration ---------------------------------------------------
