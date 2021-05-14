@@ -13,7 +13,7 @@ Subpackage "helpers.calcs"
 --------------------------
 
 Module "bmi"
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: snakypy.helpers.calcs.bmi
    :members:
@@ -44,10 +44,10 @@ Module "finders"
    :undoc-members:
    :show-inheritance:
 
-Module "several"
+Module "generic"
 ~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: snakypy.helpers.catches.several
+.. automodule:: snakypy.helpers.catches.generic
    :members:
    :undoc-members:
    :show-inheritance:
@@ -61,10 +61,18 @@ Subpackage "helpers.console"
    :undoc-members:
    :show-inheritance:
 
-Module "screen"
+Module "display"
 ~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: snakypy.helpers.console.screen
+.. automodule:: snakypy.helpers.console.display
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackage "helpers.decorators"
+--------------------------------
+
+.. automodule:: snakypy.helpers.decorators
    :members:
    :undoc-members:
    :show-inheritance:
@@ -102,18 +110,10 @@ Subpackage "helpers.os"
    :undoc-members:
    :show-inheritance:
 
-Module "destroyers"
+Module "removals"
 ~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: snakypy.helpers.os.destroyers
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module "process"
-~~~~~~~~~~~~~~~~~~~
-
-.. automodule:: snakypy.helpers.os.process
+.. automodule:: snakypy.helpers.os.removals
    :members:
    :undoc-members:
    :show-inheritance:
@@ -127,26 +127,10 @@ Subpackage "helpers.path"
    :undoc-members:
    :show-inheritance:
 
-Module "create"
-~~~~~~~~~~~~~~~~~~~
+Subpackage "helpers.subprocess"
+--------------------------------
 
-.. automodule:: snakypy.helpers.path.create
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Subpackage "helpers.utils"
----------------------------
-
-.. automodule:: snakypy.helpers.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module "decorators"
-~~~~~~~~~~~~~~~~~~~
-
-.. automodule:: snakypy.helpers.utils.decorators
+.. automodule:: snakypy.helpers.subprocess
    :members:
    :undoc-members:
    :show-inheritance:
