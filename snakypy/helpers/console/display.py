@@ -2,7 +2,7 @@ import time
 import sys
 from typing import Union, Any
 from snakypy.helpers.decorators import denying_os
-from snakypy.helpers.console.utils import check_fg_bg_sgr
+# from snakypy.helpers.console.utils import check_fg_bg_sgr
 from snakypy.helpers.ansi import NONE, FG, BG, SGR
 from datetime import date
 
@@ -21,12 +21,18 @@ def printer(
     """A function that allows you to print colored text on the terminal.
 
     >>> from snakypy.helpers import printer, FG, BG, SGR
-    >>> printer('Hello, World!', foreground=FG.BLACK, background=BG.WHITE, sgr=SGR.UNDERLINE)
+    >>> printer('Hello, World!', foreground=FG().BLACK, background=BG().WHITE, sgr=SGR.UNDERLINE)
     Hello, World!
     ('Hello, World!',)
-    >>> printer('Hello, World!', foreground=FG.MAGENTA, sgr=SGR.UNDERLINE)
+    >>> printer('Hello, World!', foreground=FG().MAGENTA, sgr=SGR.UNDERLINE)
     Hello, World!
     ('Hello, World!',)
+    >>> printer('Not found', foreground=FG(error_icon="[x]").ERROR, sgr=SGR.UNDERLINE)
+    Not found
+    ('Not found',)
+    >>> printer('Not found', foreground=BG(error_icon="[x]").ERROR, sgr=SGR.BOLD)
+    Not found
+    ('Not found',)
 
     Args:
         foreground (str): This named argument should optionally receive an object of class "snakypy.ansi.FG" for
@@ -47,7 +53,8 @@ def printer(
         flush (bool):
     """
 
-    check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
+    #  # DEPRECATED
+    # check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
 
     try:
         lst = []
@@ -82,13 +89,13 @@ def entry(
         Note: If you use Windows, the coloring option will not work.
 
     >>> from snakypy.helpers import entry, FG
-    >>> entry("What's your name?", foreground=FG.QUESTION)
+    >>> entry("What's your name?", foreground=FG().QUESTION)
     ➜ What's your name?
     > 'snakypy'
-    >>> entry("What's your name?", foreground=FG.BLUE)
+    >>> entry("What's your name?", foreground=FG().BLUE)
     ➜ What's your name?
     > 'snakypy'
-    >>> entry("What's your name?", foreground=FG.GREEN)
+    >>> entry("What's your name?", foreground=FG().GREEN)
     ➜ What's your name?
     > 'snakypy'
 
@@ -96,17 +103,17 @@ def entry(
         text (object): Argument must receive an object
 
         foreground (str): This named argument should optionally receive \
-                            an object of class "snakypy.ansi.FG" for the foreground \
+                            an object of class "snakypy.helpers.ansi.FG" for the foreground \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
         background (str):  This named argument should optionally receive \
-                            an object of class "snakypy.ansi.BG" for the background \
+                            an object of class "snakypy.helpers.ansi.BG" for the background \
                             color of the text. This object will be text with ansi code. \
                             (default: '')
 
         sgr (str): This named argument should optionally receive \
-                         an object of class "snakypy.ansi.SGR" for the effect \
+                         an object of class "snakypy.helpers.ansi.SGR" for the effect \
                          of the text. This object will be text with ansi code. \
                          (default: '')
 
@@ -116,15 +123,16 @@ def entry(
 
     """
 
-    check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
+    # # DEPRECATED
+    # check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
 
     try:
         return input(f"{NONE}{sgr}{foreground}{background}{text}{jump_line}{NONE}")
     except KeyboardInterrupt:
-        print(f"\n{FG.WARNING} Aborted by user.{NONE}")
+        print(f"\n{FG().WARNING} Aborted by user.{NONE}")
         return "Aborted by user."
     except TypeError:
-        print(f"\n{FG.ERROR} Input value not defined.{NONE}")
+        print(f"\n{FG().ERROR} Input value not defined.{NONE}")
         return "Input value not defined."
 
 
@@ -139,20 +147,20 @@ def pick_options(
     ctrl_c_message: bool = False,
 ) -> Union[tuple[int, Any], bool, None]:
     if not colorful:
-        FG.QUESTION = ""
-        FG.GREEN = ""
-        FG.MAGENTA = ""
-        FG.CYAN = ""
-        FG.ERROR = ""
-        FG.WARNING = ""
+        FG().QUESTION = ""
+        FG().GREEN = ""
+        FG().MAGENTA = ""
+        FG().CYAN = ""
+        FG().ERROR = ""
+        FG().WARNING = ""
     ctrl_c = "(Ctrl+C to Cancel)" if ctrl_c_message else ""
-    printer(title, ctrl_c, foreground=FG.QUESTION)
+    printer(title, ctrl_c, foreground=FG().QUESTION)
     count = 1
     for option in options:
-        print(f"{FG.GREEN}[{count}] {FG.MAGENTA}{option}{NONE}")
+        print(f"{FG().GREEN}[{count}] {FG().MAGENTA}{option}{NONE}")
         count += 1
     try:
-        pos = int(input(f"{FG.CYAN}{answer} {NONE}")) - 1
+        pos = int(input(f"{FG().CYAN}{answer} {NONE}")) - 1
         assert pos > -1
         if index and lowercase:
             return pos, options[pos].lower()
@@ -162,10 +170,10 @@ def pick_options(
             return options[pos].lower()
         return options[pos]
     except IndexError:
-        printer("Option invalid!", foreground=FG.ERROR)
+        printer("Option invalid!", foreground=FG().ERROR)
         return False
     except KeyboardInterrupt:
-        printer("Canceled by user.", foreground=FG.WARNING)
+        printer("Canceled by user.", foreground=FG().WARNING)
         return True
 
 
@@ -269,7 +277,7 @@ def billboard(
     >>> from snakypy.helpers.console import billboard
     >>> from snakypy.helpers import FG, BG
     >>> billboard('Hello, Snakypy!')
-    >>> billboard('Hello, Snakypy!', foreground=FG.BLUE, background=BG.WHITE)
+    >>> billboard('Hello, Snakypy!', foreground=FG().BLUE, background=BG().WHITE)
 
     Args:
         text (str): Any text must be informed.
@@ -448,7 +456,7 @@ def loading(
         print()
         return
     except KeyboardInterrupt:
-        printer("\nCanceled by user.", foreground=FG.WARNING)
+        printer("\nCanceled by user.", foreground=FG().WARNING)
         return
 
 
