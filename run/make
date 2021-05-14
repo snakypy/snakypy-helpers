@@ -72,6 +72,7 @@ EOF
 			_msg_header_ "[ Linter ] Checks whether the code structure ..." "\n"
 			poetry run flake8 $PACKAGE_NAME tests
 			poetry run mypy $PACKAGE_NAME/
+			poetry run black $PACKAGE_NAME/ --check
 			_msg_finish_ "Linter finished!"
 		else
 			_msg_error_ "Linter Flake8 or Mypy not installed.\nInstall the requirements that this resolves."
