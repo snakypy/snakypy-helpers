@@ -128,8 +128,6 @@ EOF
 	function _clean () {
 		_msg_header_ "Cleaning build..." "\n"
 		rm -rf ./build ./dist ./.eggs ./.pytest_cache ./.tox
-		rm -f ./docs/$PACKAGE_NAME.rst
-		rm -f ./docs/modules.rst
 		rm -rf ./docs/_build
 		_msg_finish_ "Clean build!"
 	}
