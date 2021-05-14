@@ -2,7 +2,6 @@ import time
 import sys
 from typing import Union, Any
 from snakypy.helpers.decorators import denying_os
-# from snakypy.helpers.console.utils import check_fg_bg_sgr
 from snakypy.helpers.ansi import NONE, FG, BG, SGR
 from datetime import date
 
