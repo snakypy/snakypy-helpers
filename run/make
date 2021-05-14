@@ -105,6 +105,7 @@ EOF
 		_msg_header_ "Compiling..." "\n"
 	    # eqversion
 		poetry build
+		cd docs; make html; cd ..
 		_msg_finish_ "Compilation completed!"
 	}
 
