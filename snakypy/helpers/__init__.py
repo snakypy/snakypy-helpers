@@ -21,7 +21,7 @@ import snakypy.helpers.files
 import snakypy.helpers.os
 import snakypy.helpers.path
 import snakypy.helpers.decorators
-from snakypy.helpers.ansi import BG, FG, SGR
+from snakypy.helpers.ansi import BG, FG, SGR, NONE
 from snakypy.helpers.console import entry, pick, printer
 
 __info__ = {
