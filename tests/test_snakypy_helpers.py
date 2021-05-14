@@ -141,7 +141,7 @@ def test_cleaner_successfully(base):
 
 
 def test_printer_return():
-    val = printer("Hello, World!", ":D", foreground=FG.BLACK, background=BG.WHITE, sgr=SGR.UNDERLINE)
+    val = printer("Hello, World!", ":D", foreground=FG().BLACK, background=BG().WHITE, sgr=SGR.UNDERLINE)
     assert val[0] == "Hello, World!"
     assert val[1] == ":D"
 
