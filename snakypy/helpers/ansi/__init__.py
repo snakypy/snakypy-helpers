@@ -28,58 +28,119 @@ NONE = return_ansi_or_not("\x1b[0m")
 
 
 class FG:
-    """
-    Class FG (foreground) that receives colors and ANSI settings in each of
-    the global variables below to be applied in texts.
-    """
+    def __init__(self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"):
+        """
+            Class FG (foreground) that receives colors and ANSI settings in each of
+            the global variables below to be applied in texts.
 
-    BLACK = return_ansi_or_not("\x1b[30m")
-    MAGENTA = return_ansi_or_not("\x1b[95m")
-    BLUE = return_ansi_or_not("\x1b[94m")
-    GREEN = return_ansi_or_not("\x1b[92m")
-    RED = return_ansi_or_not("\x1b[91m")
-    YELLOW = return_ansi_or_not("\x1b[93m")
-    CYAN = return_ansi_or_not("\x1b[96m")
-    WHITE = return_ansi_or_not("\x1b[97m")
+            >>> from snakypy.helpers import FG, NONE
+            >>> print(FG().BLUE, "Hello!", NONE)
+            Hello!
+            >>> print(FG(question_icon="->").QUESTION, "Hello!", NONE)
+            Hello!
 
-    WARNING = return_ansi_or_not(f"{YELLOW}⚠ ")
-    ERROR = return_ansi_or_not(f"{RED}✖ ")
-    FINISH = return_ansi_or_not(f"{GREEN}✔ ")
-    QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
+        Args:
+            warning_icon: Choose a warning icon you like or just accept the default icon. Default: ⚠
+            error_icon: Choose a error icon you like or just accept the default icon. Default: ✖
+            finish_icon: Choose a finish icon you like or just accept the default icon. Default: ✔
+            question_icon: Choose a question icon you like or just accept the default icon. Default: ➜
+        """
+        self.BLACK = return_ansi_or_not("\x1b[30m")
+        self.MAGENTA = return_ansi_or_not("\x1b[95m")
+        self.BLUE = return_ansi_or_not("\x1b[94m")
+        self.GREEN = return_ansi_or_not("\x1b[92m")
+        self.RED = return_ansi_or_not("\x1b[91m")
+        self.YELLOW = return_ansi_or_not("\x1b[93m")
+        self.CYAN = return_ansi_or_not("\x1b[96m")
+        self.WHITE = return_ansi_or_not("\x1b[97m")
+
+        self.WARNING = return_ansi_or_not(f"{self.YELLOW}{warning_icon} ")
+        self.ERROR = return_ansi_or_not(f"{self.RED}{error_icon} ")
+        self.FINISH = return_ansi_or_not(f"{self.GREEN}{finish_icon} ")
+        self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon} ")
 
 
-class BG:
-    """
-    Class BG (background) that receives colors and ANSI settings in each
-    of the global variables below to be applied in texts.
-    """
-
-    BLACK = return_ansi_or_not("\x1b[40m")
-    MAGENTA = return_ansi_or_not("\x1b[105m")
-    BLUE = return_ansi_or_not("\x1b[104m")
-    GREEN = return_ansi_or_not("\x1b[102m")
-    RED = return_ansi_or_not("\x1b[101m")
-    YELLOW = return_ansi_or_not("\x1b[103m")
-    CYAN = return_ansi_or_not("\x1b[106m")
-    WHITE = return_ansi_or_not("\x1b[107m")
-
-    WARNING = return_ansi_or_not(f"{YELLOW}⚠ ")
-    ERROR = return_ansi_or_not(f"{RED}✖ ")
-    FINISH = return_ansi_or_not(f"{GREEN}✔ ")
-    QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
+# class FG:
+#     """
+#     Class FG (foreground) that receives colors and ANSI settings in each of
+#     the global variables below to be applied in texts.
+#     """
+#
+#     BLACK = return_ansi_or_not("\x1b[30m")
+#     MAGENTA = return_ansi_or_not("\x1b[95m")
+#     BLUE = return_ansi_or_not("\x1b[94m")
+#     GREEN = return_ansi_or_not("\x1b[92m")
+#     RED = return_ansi_or_not("\x1b[91m")
+#     YELLOW = return_ansi_or_not("\x1b[93m")
+#     CYAN = return_ansi_or_not("\x1b[96m")
+#     WHITE = return_ansi_or_not("\x1b[97m")
+#     WARNING = return_ansi_or_not(f"{YELLOW} ")
+#
+#     ERROR = return_ansi_or_not(f"{RED}✖ ")
+#     FINISH = return_ansi_or_not(f"{GREEN}✔ ")
+#     QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
 
 
 class SGR:
+
     """
     SGR class that receives effects for text such as underline, blink, etc.
     """
-
     BOLD = return_ansi_or_not("\x1b[1m")
     ITALIC = return_ansi_or_not("\x1b[3m")
     UNDERLINE = return_ansi_or_not("\x1b[4m")
     SLOW_BLINK = return_ansi_or_not("\x1b[5m")
     RAPID_BLINK = return_ansi_or_not("\x1b[6m")
+
     REVERSE_COLOR = return_ansi_or_not("\x1b[7m")
+
+
+# class BG:
+#     """
+#     Class BG (background) that receives colors and ANSI settings in each
+#     of the global variables below to be applied in texts.
+#     """
+#
+#     BLACK = return_ansi_or_not("\x1b[40m")
+#     MAGENTA = return_ansi_or_not("\x1b[105m")
+#     BLUE = return_ansi_or_not("\x1b[104m")
+#     GREEN = return_ansi_or_not("\x1b[102m")
+#     RED = return_ansi_or_not("\x1b[101m")
+#     YELLOW = return_ansi_or_not("\x1b[103m")
+#     CYAN = return_ansi_or_not("\x1b[106m")
+#     WHITE = return_ansi_or_not("\x1b[107m")
+#
+#     WARNING = return_ansi_or_not(f"{YELLOW}⚠ ")
+#     ERROR = return_ansi_or_not(f"{RED}✖ ")
+#     FINISH = return_ansi_or_not(f"{GREEN}✔ ")
+#     QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
+
+
+class BG:
+    def __init__(self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"):
+        """
+            Class BG (background) that receives colors and ANSI settings in each
+            of the global variables below to be applied in texts.
+
+        Args:
+            warning_icon: Choose a warning icon you like or just accept the default icon. Default: ⚠
+            error_icon: Choose a error icon you like or just accept the default icon. Default: ✖
+            finish_icon: Choose a finish icon you like or just accept the default icon. Default: ✔
+            question_icon: Choose a question icon you like or just accept the default icon. Default: ➜
+        """
+        self.BLACK = return_ansi_or_not("\x1b[40m")
+        self.MAGENTA = return_ansi_or_not("\x1b[105m")
+        self.BLUE = return_ansi_or_not("\x1b[104m")
+        self.GREEN = return_ansi_or_not("\x1b[102m")
+        self.RED = return_ansi_or_not("\x1b[101m")
+        self.YELLOW = return_ansi_or_not("\x1b[103m")
+        self.CYAN = return_ansi_or_not("\x1b[106m")
+        self.WHITE = return_ansi_or_not("\x1b[107m")
+
+        self.WARNING = return_ansi_or_not(f"{self.YELLOW}{warning_icon} ")
+        self.ERROR = return_ansi_or_not(f"{self.RED}{error_icon} ")
+        self.FINISH = return_ansi_or_not(f"{self.GREEN}{finish_icon} ")
+        self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon} ")
 
 
 __all__ = ["NONE", "FG", "BG", "SGR"]
