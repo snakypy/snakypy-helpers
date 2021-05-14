@@ -1,7 +1,7 @@
 from shutil import which
 from os.path import isdir, join, exists
 from os import walk
-from snakypy.helpers.utils.decorators import only_linux
+from snakypy.helpers.decorators import only_linux
 
 
 def find_objects(

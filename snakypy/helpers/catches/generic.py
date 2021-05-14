@@ -1,9 +1,8 @@
 import re
 from os.path import splitext
 from os import popen
-from snakypy.helpers.utils.decorators import only_linux
+from snakypy.helpers.decorators import only_linux
 from subprocess import check_output
-from snakypy.helpers.utils import decorators
 from sys import platform
 
 
@@ -22,7 +21,7 @@ def whoami() -> str:
     return str(popen("whoami").read()).replace("\n", "")
 
 
-@decorators.only_linux
+@only_linux
 def shell() -> str:
     """
     Function to get the currently activated shell.

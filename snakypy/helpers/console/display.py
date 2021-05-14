@@ -1,34 +1,14 @@
 import time
 import sys
 from typing import Union, Any
-from snakypy.helpers.utils import decorators
+from snakypy.helpers.decorators import denying_os
+from snakypy.helpers.console.utils import check_fg_bg_sgr
 from snakypy.helpers.ansi import NONE, FG, BG, SGR
 from subprocess import Popen, PIPE
+from datetime import date
 
 
-def attr_foreground_background_sgr(*args) -> None:
-    """
-    Checks if the attributes of the functions that the foreground
-    and background parameters are in accordance with their respective class.
-
-    Args:
-        args (str): It receives a certain number of arguments with an ansi code value.
-    """
-    if args[0] and args[0] not in FG.__dict__.values():
-        raise AttributeError(
-            'Attribute invalid in parameter "foreground". Must receive from FG class.'
-        )
-    if args[1] and args[1] not in BG.__dict__.values():
-        raise AttributeError(
-            'Attribute invalid in parameter "background". Must receive from BG class.'
-        )
-    if args[2] and args[2] not in SGR.__dict__.values():
-        raise AttributeError(
-            'Attribute invalid in parameter "sgr". Must receive from SGR class.'
-        )
-
-
-@decorators.denying_os("nt")
+@denying_os("nt")
 def printer(
     *args: str,
     foreground: str = "",
@@ -68,7 +48,7 @@ def printer(
         flush (bool):
     """
 
-    attr_foreground_background_sgr(foreground, background, sgr)
+    check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
 
     try:
         lst = []
@@ -88,7 +68,7 @@ def printer(
         raise AttributeError("Invalid parameter passed")
 
 
-@decorators.denying_os("nt")
+@denying_os("nt")
 def entry(
     text,
     *,
@@ -137,7 +117,7 @@ def entry(
 
     """
 
-    attr_foreground_background_sgr(foreground, background, sgr)
+    check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
 
     try:
         return input(f"{NONE}{sgr}{foreground}{background}{text}{jump_line}{NONE}")
@@ -322,54 +302,6 @@ def billboard(
     return printer(banner, foreground=foreground, background=background)
 
 
-# The use of static typing in this function in conjunction with "inter", caused
-# errors when using Mypy, perhaps because at run time the inter would always return None,
-# so it is recommended in the file mypy.ini, to use the option "strict_optional = False".
-# Ref: https://stackoverflow.com/questions/57350490/mypy-complaining-that-popen-stdout-does-not-have-a-readline
-def cmd(
-    command: str,
-    *args: Any,
-    shell: bool = True,
-    universal_newlines: bool = True,
-    ret: bool = False,
-    verbose: bool = False,
-) -> int:
-    """
-        Function that uses the subprocess library with Popen.
-        The function receives a command as an argument and shows
-        execution in real time.
-
-        >>> from snakypy.helpers.console import cmd
-        >>> url = 'git clone https://github.com/snakypy/snakypy.git'
-        >>> cmd(url, verbose=True)
-
-    Args:
-        command (str): Must inform the command to be executed.
-
-        shell (bool): Receives a Boolean value. If it has False, the command must be in list where
-                            the command space is split. **E.g:** ['ls', '/bin']. If the value is True, the command
-                            can be stored in a string normal. **E.g:** 'ls /bin'
-
-        ret (bool): The default value is False, however if it is set to True it will \
-                      return a code status of the command output, where the code 0 (zero), \
-                      is output without errors. \
-
-        verbose (bool): The default value is False, if you change it to True, the command \
-                          will show in real time the exit at the terminal, if there is an exit. \
-    Returns:
-        A negative integer will return if everything is right, or the value of the process.
-    """
-    process = Popen(
-        command, shell=shell, stdout=PIPE, universal_newlines=universal_newlines
-    )
-    if verbose:
-        for line in iter(process.stdout.readline, ""):
-            print(NONE, *args, line.rstrip(), NONE)
-    if ret:
-        return process.poll()
-    return -1
-
-
 def credence(
     app_name: str,
     app_version: str,
@@ -439,9 +371,6 @@ def credence(
 
         column (int): Justify the position of the credits through the columns using an integer. (default: 80)
     """
-
-    from datetime import date
-
     try:
 
         if type(data) is not dict:
@@ -524,4 +453,4 @@ def loading(
         return
 
 
-__all__ = ["pick", "entry", "printer", "billboard", "cmd", "credence", "loading"]
+__all__ = ["pick", "entry", "printer", "billboard", "credence", "loading"]

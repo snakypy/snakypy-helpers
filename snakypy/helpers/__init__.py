@@ -20,10 +20,9 @@ import snakypy.helpers.console
 import snakypy.helpers.files
 import snakypy.helpers.os
 import snakypy.helpers.path
-import snakypy.helpers.utils
+import snakypy.helpers.decorators
 from snakypy.helpers.ansi import BG, FG, SGR
 from snakypy.helpers.console import entry, pick, printer
-from snakypy.helpers.utils import decorators
 
 __info__ = {
     "name": "Snakypy Organization",

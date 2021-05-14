@@ -1,6 +1,4 @@
 """Tests for `snakypy` package."""
-from getpass import getpass
-
 import pytest
 import os
 import snakypy
@@ -9,21 +7,20 @@ from unittest import TestCase
 from os.path import join, exists
 from sys import platform
 from unittest.mock import patch
-from snakypy.helpers.utils.decorators import only_linux, silent_errors
-from snakypy.helpers.files import create_file, backup_file, read_file
+from snakypy.helpers.decorators import only_linux, silent_errors
+from snakypy.helpers.files import create_file, backup_file
 from snakypy.helpers.files import create_json
 from snakypy.helpers.files import read_json
 from snakypy.helpers.files import update_json
-from snakypy.helpers.os import cleaner, systemctl_is_active, remove_objects
+from snakypy.helpers.os import cleaner, remove_objects
 from snakypy.helpers.catches import shell, extension
 from snakypy.helpers import printer, FG, BG, SGR
 from snakypy.helpers.calcs import percentage, fibonacci, compound_interest, simple_interest
 from snakypy.helpers.path import create as create_path
 from snakypy.helpers.os import rmdir_blank
 from snakypy.helpers.calcs import bmi
-from snakypy.helpers.console import cmd
+from snakypy.helpers.subprocess import command, systemctl_is_active
 from snakypy.helpers.catches.finders import find_objects, is_tool, tools_requirements
-from snakypy.helpers.os import super_command
 
 
 def test_version():
@@ -88,6 +85,8 @@ def test_tools_requirements():
 
 
 # def test_super_command(base):
+#     from snakypy.helpers.subprocess import super_command
+#
 #     test_create_file(base)
 #     path = join(base["tmp"], base["files"][0])
 #     super_command(f"chmod 000 {path}")
@@ -217,14 +216,14 @@ def test_percentage():
     perc = 5  # 5%
     whole = 120
     result_v = percentage(perc, whole)
-    result_sum = percentage(5, 120, operation='+')
-    result_sub = percentage(5, 120, operation='-')
-    result_log_sum = percentage(5, 120, operation='+', log=True)
-    result_log_sub = percentage(5, 120, operation='-', log=True)
     assert result_v == 6.0
+    result_sum = percentage(perc, whole, operation='+')
     assert result_sum == 126.0
+    result_sub = percentage(perc, whole, operation='-')
     assert result_sub == 114.00
+    result_log_sum = percentage(perc, whole, operation='+', log=True)
     assert result_log_sum == f'>> {whole} + {perc}% = 126.00'
+    result_log_sub = percentage(perc, whole, operation='-', log=True)
     assert result_log_sub == f'>> {whole} - {perc}% = 114.00'
 
 
@@ -238,7 +237,7 @@ def test_file_extension():
 
 
 def test_command_real_time():
-    assert cmd('ls', ret=True, verbose=True) == 0
+    assert command('ls', ret=True, verbose=True) == 0
 
 
 def test_imc():
@@ -249,7 +248,7 @@ def test_imc():
         bmi('M', 70, 4.00)
         bmi('F', 0, 0)
         bmi('F', 350, 1.50)
-        bmi('', 70, 1.70)
+        bmi('', 70, 1.73)
     result = bmi('M', 70, 1.73)
     assert result == 'Normal weight.'
     result = bmi('m', 59.2, 1.80)
