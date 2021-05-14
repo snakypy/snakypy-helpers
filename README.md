@@ -23,11 +23,9 @@
     <a href="#requirements">Requirements</a> |
     <a href="#installing">Install</a> |
     <a href="#upgrading">Upgrade</a> |
+    <a href="#documentation">Documentation</a> |
     <a href="#donation">Donation</a> |
   </h4>
-  <h5>
-    | <a href="#more-commands">More Commands</a> |
-  </h5>
 </div>
 
 <div align="center">
