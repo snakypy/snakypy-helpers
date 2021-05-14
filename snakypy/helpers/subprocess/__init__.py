@@ -87,9 +87,9 @@ def super_command(cmd: str) -> Union[Optional[str], None]:
 
             if "failure" not in communicate[1].split():
                 return communicate[0]
-            printer("Password incorrect.", foreground=FG.WARNING)
+            printer("Password incorrect.", foreground=FG().WARNING)
     except KeyboardInterrupt:
-        printer("Aborted by user.", foreground=FG.WARNING)
+        printer("Aborted by user.", foreground=FG().WARNING)
         return None
 
 
@@ -115,7 +115,7 @@ def systemctl_is_active(service: str) -> Union[tuple, None]:
         output, err = process.communicate()
         return output.replace("\n", ""), err
     except FileNotFoundError:
-        printer("The system does not support SystemD.", foreground=FG.ERROR)
+        printer("The system does not support SystemD.", foreground=FG().ERROR)
         return None
 
 
