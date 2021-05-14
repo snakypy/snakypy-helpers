@@ -6,6 +6,48 @@ certain foreground or background color, and font style settings in Ansi.
 import sys
 
 
+# class BG:
+#     """
+#     Class BG (background) that receives colors and ANSI settings in each
+#     of the global variables below to be applied in texts.
+#     """
+#
+#     BLACK = return_ansi_or_not("\x1b[40m")
+#     MAGENTA = return_ansi_or_not("\x1b[105m")
+#     BLUE = return_ansi_or_not("\x1b[104m")
+#     GREEN = return_ansi_or_not("\x1b[102m")
+#     RED = return_ansi_or_not("\x1b[101m")
+#     YELLOW = return_ansi_or_not("\x1b[103m")
+#     CYAN = return_ansi_or_not("\x1b[106m")
+#     WHITE = return_ansi_or_not("\x1b[107m")
+#
+#     WARNING = return_ansi_or_not(f"{YELLOW}⚠ ")
+#     ERROR = return_ansi_or_not(f"{RED}✖ ")
+#     FINISH = return_ansi_or_not(f"{GREEN}✔ ")
+#     QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
+
+
+# class FG:
+#     """
+#     Class FG (foreground) that receives colors and ANSI settings in each of
+#     the global variables below to be applied in texts.
+#     """
+#
+#     BLACK = return_ansi_or_not("\x1b[30m")
+#     MAGENTA = return_ansi_or_not("\x1b[95m")
+#     BLUE = return_ansi_or_not("\x1b[94m")
+#     GREEN = return_ansi_or_not("\x1b[92m")
+#     RED = return_ansi_or_not("\x1b[91m")
+#     YELLOW = return_ansi_or_not("\x1b[93m")
+#     CYAN = return_ansi_or_not("\x1b[96m")
+#     WHITE = return_ansi_or_not("\x1b[97m")
+#     WARNING = return_ansi_or_not(f"{YELLOW} ")
+#
+#     ERROR = return_ansi_or_not(f"{RED}✖ ")
+#     FINISH = return_ansi_or_not(f"{GREEN}✔ ")
+#     QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
+
+
 def return_ansi_or_not(value: str) -> str:
     """
         This function checks if the operating system is Windows, and
@@ -28,7 +70,9 @@ NONE = return_ansi_or_not("\x1b[0m")
 
 
 class FG:
-    def __init__(self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"):
+    def __init__(
+        self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"
+    ):
         """
             Class FG (foreground) that receives colors and ANSI settings in each of
             the global variables below to be applied in texts.
@@ -60,32 +104,12 @@ class FG:
         self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon} ")
 
 
-# class FG:
-#     """
-#     Class FG (foreground) that receives colors and ANSI settings in each of
-#     the global variables below to be applied in texts.
-#     """
-#
-#     BLACK = return_ansi_or_not("\x1b[30m")
-#     MAGENTA = return_ansi_or_not("\x1b[95m")
-#     BLUE = return_ansi_or_not("\x1b[94m")
-#     GREEN = return_ansi_or_not("\x1b[92m")
-#     RED = return_ansi_or_not("\x1b[91m")
-#     YELLOW = return_ansi_or_not("\x1b[93m")
-#     CYAN = return_ansi_or_not("\x1b[96m")
-#     WHITE = return_ansi_or_not("\x1b[97m")
-#     WARNING = return_ansi_or_not(f"{YELLOW} ")
-#
-#     ERROR = return_ansi_or_not(f"{RED}✖ ")
-#     FINISH = return_ansi_or_not(f"{GREEN}✔ ")
-#     QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
-
-
 class SGR:
 
     """
     SGR class that receives effects for text such as underline, blink, etc.
     """
+
     BOLD = return_ansi_or_not("\x1b[1m")
     ITALIC = return_ansi_or_not("\x1b[3m")
     UNDERLINE = return_ansi_or_not("\x1b[4m")
@@ -95,29 +119,10 @@ class SGR:
     REVERSE_COLOR = return_ansi_or_not("\x1b[7m")
 
 
-# class BG:
-#     """
-#     Class BG (background) that receives colors and ANSI settings in each
-#     of the global variables below to be applied in texts.
-#     """
-#
-#     BLACK = return_ansi_or_not("\x1b[40m")
-#     MAGENTA = return_ansi_or_not("\x1b[105m")
-#     BLUE = return_ansi_or_not("\x1b[104m")
-#     GREEN = return_ansi_or_not("\x1b[102m")
-#     RED = return_ansi_or_not("\x1b[101m")
-#     YELLOW = return_ansi_or_not("\x1b[103m")
-#     CYAN = return_ansi_or_not("\x1b[106m")
-#     WHITE = return_ansi_or_not("\x1b[107m")
-#
-#     WARNING = return_ansi_or_not(f"{YELLOW}⚠ ")
-#     ERROR = return_ansi_or_not(f"{RED}✖ ")
-#     FINISH = return_ansi_or_not(f"{GREEN}✔ ")
-#     QUESTION = return_ansi_or_not(f"{CYAN}➜ ")
-
-
 class BG:
-    def __init__(self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"):
+    def __init__(
+        self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"
+    ):
         """
             Class BG (background) that receives colors and ANSI settings in each
             of the global variables below to be applied in texts.
