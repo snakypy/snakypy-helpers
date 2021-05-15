@@ -2,7 +2,7 @@
 name = "snakypy-helpers"
 version = "0.1.0"
 description = "Snakypy Helpers is a package that contains code ready to assist in the development of packages/applications so as not to replicate the code."
-authors = ["William C. Canin <https://williamcanin.github.io>"]
+authors = ["William C. Canin <william.costa.canin@gmail.com>"]
 license = "MIT"
 
 packages = [
