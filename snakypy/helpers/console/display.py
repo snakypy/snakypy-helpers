@@ -52,7 +52,7 @@ def printer(
         flush (bool):
     """
 
-    #  # DEPRECATED
+    #  TODO: DEPRECATED
     # check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
 
     try:
@@ -122,7 +122,7 @@ def entry(
 
     """
 
-    # # DEPRECATED
+    # TODO: DEPRECATED
     # check_fg_bg_sgr(FG, BG, SGR, foreground, background, sgr)
 
     try:
@@ -433,7 +433,6 @@ def loading(
 
     header (str): Modifies the animation header (default: {'[Loading]'})
     """
-    # denying_win(foreground)
     printer(header, foreground=foreground)
     try:
         if bar:
