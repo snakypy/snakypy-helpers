@@ -12,7 +12,6 @@
 #
 import os
 import sys
-from snakypy.helpers import __info__
 sys.path.insert(0, os.path.abspath('.'))
 
 
@@ -22,9 +21,9 @@ project = 'snakypy-helpers'
 copyright = '2021, William C. Canin'
 author = 'William C. Canin'
 
-version = __info__["version"]
+version = "0.1.0"
 # The full version, including alpha/beta/rc tags
-release = __info__["version"]
+release = "0.1.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -76,39 +75,39 @@ source_suffix = {
 }
 
 # The master toctree document.
-master_doc = 'index'
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, author, documentclass
-# [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'snakypy.tex',
-     'Snakypy Documentation',
-     'William C. Canin', 'manual'),
-]
-
-
-# -- Options for manual page output ------------------------------------
-
-# One entry per manual page. List of tuples
-# (source start file, name, description, authors, manual section).
-man_pages = [
-    (master_doc, 'snakypy',
-     'Snakypy Documentation',
-     [author], 1)
-]
-
-
-# -- Options for Texinfo output ----------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'snakypy',
-     'Snakypy Documentation',
-     author,
-     'snakypy',
-     'One line description of project.',
-     'Miscellaneous'),
-]
+# master_doc = 'index'
+#
+# # Grouping the document tree into LaTeX files. List of tuples
+# # (source start file, target name, title, author, documentclass
+# # [howto, manual, or own class]).
+# latex_documents = [
+#     (master_doc, 'snakypy.tex',
+#      'Snakypy Documentation',
+#      'William C. Canin', 'manual'),
+# ]
+#
+#
+# # -- Options for manual page output ------------------------------------
+#
+# # One entry per manual page. List of tuples
+# # (source start file, name, description, authors, manual section).
+# man_pages = [
+#     (master_doc, 'snakypy',
+#      'Snakypy Documentation',
+#      [author], 1)
+# ]
+#
+#
+# # -- Options for Texinfo output ----------------------------------------
+#
+# # Grouping the document tree into Texinfo files. List of tuples
+# # (source start file, target name, title, author,
+# #  dir menu entry, description, category)
+# texinfo_documents = [
+#     (master_doc, 'snakypy',
+#      'Snakypy Documentation',
+#      author,
+#      'snakypy',
+#      'One line description of project.',
+#      'Miscellaneous'),
+# ]
