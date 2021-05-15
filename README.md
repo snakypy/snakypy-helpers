@@ -13,7 +13,7 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/snakypy-helpers)
 ![PyPI](https://img.shields.io/pypi/v/snakypy-helpers)
 ![PyPI - Implementation](https://img.shields.io/pypi/implementation/snakypy-helpers)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/snakypy-helpers)
+![PyPI - Downloads](https://img.shields.io/pypi/dd/snakypy-helpers)
 ![PyPI - License](https://img.shields.io/pypi/l/snakypy-helpers)
 ![GitHub contributors](https://img.shields.io/github/contributors/snakypy/snakypy-helpers)
 ![GitHub top language](https://img.shields.io/github/languages/top/snakypy/snakypy-helpers)
