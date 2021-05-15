@@ -28,8 +28,8 @@ def test_version():
 
 
 @pytest.fixture
-def base(tmp_dir):
-    tmp = tmp_dir.mkdir("temporary")
+def base(tmpdir):
+    tmp = tmpdir.mkdir("temporary")
     files = ["file.txt", "file.json"]
     content = """Snakypy"""
     return {"tmp": tmp, "files": files, "content": content}
