@@ -1,9 +1,14 @@
 [tool.poetry]
 name = "snakypy-helpers"
-version = "0.1.0"
+version = "0.1.1"
 description = "Snakypy Helpers is a package that contains code ready to assist in the development of packages/applications so as not to replicate the code."
 authors = ["William C. Canin <william.costa.canin@gmail.com>"]
-license = "MIT"
+readme = "README.rst"
+license = "MIT license"
+keywords=["snakypy", "helpers", "linux"]
+homepage = "https://github.com/snakypy/snakypy-helpers"
+repository = "https://github.com/snakypy/snakypy-helpers"
+include = ["LICENSE"]
 
 packages = [
     {include = "snakypy"},
