@@ -28,8 +28,8 @@ def test_version():
 
 
 @pytest.fixture
-def base(tmpdir):
-    tmp = tmpdir.mkdir("temporary")
+def base(tmp_dir):
+    tmp = tmp_dir.mkdir("temporary")
     files = ["file.txt", "file.json"]
     content = """Snakypy"""
     return {"tmp": tmp, "files": files, "content": content}
@@ -82,16 +82,6 @@ def test_tools_requirements():
         assert False
     with suppress(FileNotFoundError):
         tools_requirements("ls__")
-
-
-# def test_super_command(base):
-#     from snakypy.helpers.subprocess import super_command
-#
-#     test_create_file(base)
-#     path = join(base["tmp"], base["files"][0])
-#     super_command(f"chmod 000 {path}")
-#     with pytest.raises(PermissionError):
-#         read_file(path)
 
 
 def test_systemctl_is_active():
@@ -275,6 +265,16 @@ def test_rmdir_blank(base):
     rmdir_blank(base["tmp"])
     for path in paths:
         assert os.path.isdir(path) is False
+
+
+# def test_super_command(base):
+#     from snakypy.helpers.subprocess import super_command
+#
+#     test_create_file(base)
+#     path = join(base["tmp"], base["files"][0])
+#     super_command(f"chmod 000 {path}")
+#     with pytest.raises(PermissionError):
+#         read_file(path)
 
 
 class TestBakeProject(TestCase):
