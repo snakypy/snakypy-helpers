@@ -30,5 +30,5 @@ __info__ = {
     "email": "contact.snakypy@gmail.com",
     "website": "https://snakypy.github.io",
     "github": "https://github.com/snakypy",
-    "version": "0.1.0",
+    "version": "0.1.1",
 }

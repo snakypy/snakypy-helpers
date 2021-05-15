@@ -24,7 +24,7 @@ from snakypy.helpers.catches.finders import find_objects, is_tool, tools_require
 
 
 def test_version():
-    assert snakypy.helpers.__info__["version"] == "0.1.0"
+    assert snakypy.helpers.__info__["version"] == "0.1.1"
 
 
 @pytest.fixture
