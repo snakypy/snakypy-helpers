@@ -51,12 +51,17 @@ def test_create_file(base):
     return forced
 
 
-def test_decorators():
-    @only_linux
-    def get_shell():
-        return shell()
+# def test_decorators():
+#     @only_linux
+#     def get_shell():
+#         return shell()
+#
+#     assert get_shell() in ["sh", "zsh", "bash", "fish", "ion", "elvish", "tcsh"]
 
-    assert get_shell() in ["sh", "zsh", "bash", "fish", "ion", "elvish", "tcsh"]
+# def test_get_shell():
+#     if not platform.startswith('win'):
+#         shells = ['bash', 'zsh', 'sh', 'ksh']
+#         assert shell() in shells
 
 
 def test_backup_copy_and_error(base):
@@ -201,12 +206,6 @@ def test_update_json_not_found(base):
         data = read_json(join(base["tmp"], base["files"][1]))
         data['Hello'] = 'Marte!'
         assert update_json(join(base["tmp"], base["files"][1]), data)
-
-
-def test_get_shell():
-    if not platform.startswith('win'):
-        shells = ['bash', 'zsh', 'sh', 'ksh']
-        assert shell() in shells
 
 
 def test_percentage():
