@@ -1,9 +1,7 @@
 import re
 from os.path import splitext
-from os import popen
+from os import popen, environ
 from snakypy.helpers.decorators import only_linux
-from subprocess import check_output
-from sys import platform
 
 
 @only_linux
@@ -33,13 +31,11 @@ def shell() -> str:
     Returns:
         [str] -- Returns the name of the current shell.
     """
-    if platform.startswith("win"):
-        raise RuntimeError("Unsupported operating system.")
+    get_shell = environ["SHELL"]
+    if get_shell and "/" in get_shell:
+        return get_shell.strip("\n").strip("").split("/")[-1]
 
-    s = check_output("echo $0", shell=True, universal_newlines=True)
-    lst = s.strip("\n").strip("").split("/")
-
-    return lst[2]
+    return get_shell
 
 
 def extension(filename: str, dots: bool = False) -> str:
