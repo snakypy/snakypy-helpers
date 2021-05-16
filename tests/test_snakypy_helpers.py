@@ -8,7 +8,7 @@ from os.path import join, exists
 from sys import platform
 from unittest.mock import patch
 from snakypy.helpers.decorators import only_linux, silent_errors
-from snakypy.helpers.files import create_file, backup_file
+from snakypy.helpers.files import create_file, backup_file, read_file
 from snakypy.helpers.files import create_json
 from snakypy.helpers.files import read_json
 from snakypy.helpers.files import update_json
@@ -21,10 +21,17 @@ from snakypy.helpers.os import rmdir_blank
 from snakypy.helpers.calcs import bmi
 from snakypy.helpers.subprocess import command, systemctl_is_active
 from snakypy.helpers.catches.finders import find_objects, is_tool, tools_requirements
+from docs.conf import release as release_doc, version as version_doc
+from tomlkit import parse as toml_parse
 
 
-def test_version():
-    assert snakypy.helpers.__info__["version"] == "0.1.2"
+def test_versions():
+    path = join(os.getcwd(), "pyproject.toml")
+    f = read_file(path)
+    version = toml_parse(f)["tool"]["poetry"]["version"]
+    assert snakypy.helpers.__info__["version"] == version
+    assert release_doc == version
+    assert version_doc == version
 
 
 @pytest.fixture
