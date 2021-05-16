@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snakypy-helpers"
-version = "0.1.1"
+version = "0.1.2"
 description = "Snakypy Helpers is a package that contains code ready to assist in the development of packages/applications so as not to replicate the code."
 authors = ["William C. Canin <william.costa.canin@gmail.com>"]
 readme = "README.rst"
