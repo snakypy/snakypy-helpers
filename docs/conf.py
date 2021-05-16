@@ -21,9 +21,9 @@ project = 'snakypy-helpers'
 copyright = '2021, William C. Canin'
 author = 'William C. Canin'
 
-version = "0.1.2"
+version = "0.1.3"
 # The full version, including alpha/beta/rc tags
-release = "0.1.2"
+release = "0.1.3"
 
 
 # -- General configuration ---------------------------------------------------
