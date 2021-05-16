@@ -31,8 +31,12 @@ def shell() -> str:
     Returns:
         [str] -- Returns the name of the current shell.
     """
-    get_shell = environ["SHELL"]
-    if get_shell and "/" in get_shell:
+    try:
+        get_shell = environ["SHELL"]
+    except KeyError:
+        return ""
+
+    if "/" in get_shell:
         return get_shell.strip("\n").strip("").split("/")[-1]
 
     return get_shell
