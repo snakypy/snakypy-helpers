@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snakypy-helpers"
-version = "0.1.3"
+version = "0.1.4"
 description = "Snakypy Helpers is a package that contains code ready to assist in the development of packages/applications so as not to replicate the code."
 authors = ["William C. Canin <william.costa.canin@gmail.com>"]
 readme = "README.rst"
@@ -15,7 +15,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 pyfiglet = "0.8.post1"
 
 [tool.poetry.dev-dependencies]
@@ -35,7 +35,6 @@ tomlkit = "^0.7.0"
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
 
