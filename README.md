@@ -8,16 +8,16 @@
 </h1> -->
 
 [![Tests](https://github.com/snakypy/snakypy-helpers/workflows/Tests/badge.svg)](https://github.com/snakypy/snakypy-helpers/actions/workflows/tests.yml)
-![Docs](https://readthedocs.org/projects/snakypy-helpers/badge/?version=latest)
-![Pyup](https://pyup.io/repos/github/snakypy/snakypy-helpers/shield.svg)
-![PyPI - Wheel](https://img.shields.io/pypi/wheel/snakypy-helpers)
-![PyPI](https://img.shields.io/pypi/v/snakypy-helpers)
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/snakypy-helpers)
-![PyPI - Downloads](https://img.shields.io/pypi/dd/snakypy-helpers)
-![PyPI - License](https://img.shields.io/pypi/l/snakypy-helpers)
-![GitHub contributors](https://img.shields.io/github/contributors/snakypy/snakypy-helpers)
-![GitHub top language](https://img.shields.io/github/languages/top/snakypy/snakypy-helpers)
-
+[![Python Versions](https://img.shields.io/pypi/pyversions/snakypy-helpers)](https://pyup.io/repos/github/snakypy/snakypy-helpers/)
+[![Updates](https://pyup.io/repos/github/snakypy/snakypy-helpers/shield.svg)](https://pyup.io/repos/github/snakypy/snakypy-helpers/)
+[![Python Whell](https://img.shields.io/pypi/wheel/snakypy-helpers)](https://pypi.org/project/wheel/)
+[![PyPI](https://img.shields.io/pypi/v/snakypy-helpers)](https://pypi.org/project/snakypy-helpers/#history)
+[![PyPI - Implementation](https://img.shields.io/pypi/implementation/snakypy-helpers)](https://pypi.org/project/snakypy-helpers)
+[![Isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+[![Mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
+[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/snakypy-helpers)](https://pypi.org/project/snakypy-helpers/#files)
+[![GitHub license](https://img.shields.io/github/license/snakypy/snakypy-helpers)](https://github.com/snakypy/snakypy-helpers/blob/master/LICENSE)
 
 
 <div align="center">
