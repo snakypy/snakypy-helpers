@@ -31,7 +31,7 @@ __info__ = {
     "email": "contact.snakypy@gmail.com",
     "website": "https://snakypy.github.io",
     "github": "https://github.com/snakypy",
-    "version": "0.2.0",
+    "version": "0.1.5",
 }
 
 # Keep the versions the same on pyproject.toml and __init__.py
