@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "snakypy-helpers"
-version = "0.1.4"
+version = "0.2.0"
 description = "Snakypy Helpers is a package that contains code ready to assist in the development of packages/applications so as not to replicate the code."
 authors = ["William C. Canin <william.costa.canin@gmail.com>"]
 readme = "README.rst"
@@ -32,6 +32,8 @@ pytest-runner = "^5.3.0"
 ipython = "^7.23.1"
 mypy = "^0.812"
 tomlkit = "^0.7.0"
+imake = "^0.1.1"
+isort = "^5.8.0"
 
 [tool.black]
 line-length = 88
@@ -54,6 +56,22 @@ exclude = '''
   )/
 )
 '''
+
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+src_paths = ["snakypy", "tests"]
+line_length = 88
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+cache_dir = "/tmp/.pytest_cache"
+# addopts = "-ra -q"
+testpaths = ["tests"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
