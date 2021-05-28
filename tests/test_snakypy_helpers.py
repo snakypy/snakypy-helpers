@@ -145,19 +145,15 @@ def test_fibonacci():
 
 
 def test_compound_interest():
-    assert compound_interest(2455, 12, 1) == {"amount": 2766.36, "fess": 311.36}
-    assert (
-        compound_interest(2455, 12, 1, ret_text=True)
-        == "The amount was: $ 2766.36. The fees were: $ 311.36."
-    )
+    result = compound_interest(2455, 12, 1)
+    assert result == {"amount": 2766.36, "fess": 311.36}
+    assert result == "The amount was: $ 2766.36. The fees were: $ 311.36."
 
 
 def test_simple_interest():
-    assert simple_interest(2455, 12, 1) == {"amount": 2749.6, "fess": 294.6}
-    assert (
-        simple_interest(2455, 12, 1, ret_text=True)
-        == "The amount was: $ 2749.60. The fees were: $ 294.60."
-    )
+    result = simple_interest(2455, 12, 1)
+    assert result == {"amount": 2749.6, "fess": 294.6}
+    assert result == "The amount was: $ 2749.60. The fees were: $ 294.60."
 
 
 def test_cleaner_successfully(base):
