@@ -12,9 +12,10 @@
 #
 import os
 import sys
-from os.path import join, dirname, abspath
+from os.path import abspath, dirname, join
 
 from tomlkit import parse
+
 from snakypy.helpers.files import read_file
 
 sys.path.insert(0, os.path.abspath('.'))
