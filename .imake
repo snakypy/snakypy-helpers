@@ -26,10 +26,10 @@ footer = "Test command terminated!"
 description = "Checks if the project structure is in accordance with certain linters."
 header = "Checking project structure with linters ..."
 commands = ["""
-            poetry run flake8 snakypy/ tests/;
+            poetry run flake8 snakypy/ tests/ docs/;
             poetry run mypy snakypy/ tests/;
-            poetry run isort --profile black snakypy/ tests/ --check-only;
-            poetry run black snakypy/ tests/ --check;
+            poetry run isort --profile black snakypy/ tests/ docs/ --check-only;
+            poetry run black snakypy/ tests/ docs/ --check;
 """]
 footer = "Linter command terminated!"
 
@@ -37,8 +37,8 @@ footer = "Linter command terminated!"
 description = "Corrects the project structure with certain tools."
 header = "Correcting the project structure ..."
 commands = ["""
-            poetry run isort --profile black snakypy/ tests/;
-            poetry run black snakypy/ tests/;
+            poetry run isort --profile black snakypy/ tests/ docs/;
+            poetry run black snakypy/ tests/ docs/;
 """]
 footer = "Command to correct structure finished!"
 
