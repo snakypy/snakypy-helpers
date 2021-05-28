@@ -1,9 +1,10 @@
-from subprocess import Popen, PIPE
-from typing import Union, Optional, Any
-from snakypy.helpers.console import printer
-from snakypy.helpers.ansi import FG, NONE
-from snakypy.helpers.decorators import only_linux
 from getpass import getpass
+from subprocess import PIPE, Popen
+from typing import Any, Optional, Union
+
+from snakypy.helpers.ansi import FG, NONE
+from snakypy.helpers.console import printer
+from snakypy.helpers.decorators import only_linux
 
 
 # The use of static typing in this function in conjunction with "inter", caused

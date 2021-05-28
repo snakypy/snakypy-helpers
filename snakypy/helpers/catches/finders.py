@@ -1,6 +1,7 @@
-from shutil import which
-from os.path import isdir, join, exists
 from os import walk
+from os.path import exists, isdir, join
+from shutil import which
+
 from snakypy.helpers.decorators import only_linux
 
 

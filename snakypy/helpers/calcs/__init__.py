@@ -1,2 +1,2 @@
 from .bmi import bmi
-from .math import percentage, fibonacci, compound_interest, simple_interest
+from .math import compound_interest, fibonacci, percentage, simple_interest

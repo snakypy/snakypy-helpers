@@ -1,9 +1,9 @@
 import os
 import platform
 from contextlib import suppress
+from datetime import datetime
 from functools import wraps
 from typing import Any
-from datetime import datetime
 
 
 def denying_os(os_name) -> Any:

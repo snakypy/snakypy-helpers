@@ -1,6 +1,7 @@
 import re
+from os import environ, popen
 from os.path import splitext
-from os import popen, environ
+
 from snakypy.helpers.decorators import only_linux
 
 

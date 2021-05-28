@@ -1,9 +1,7 @@
-from os import listdir, rmdir
-from contextlib import suppress
-from os.path import isdir
 from concurrent.futures import ThreadPoolExecutor
-from os import walk, remove
-from os.path import join
+from contextlib import suppress
+from os import listdir, remove, rmdir, walk
+from os.path import isdir, join
 from shutil import rmtree
 from typing import Any
 

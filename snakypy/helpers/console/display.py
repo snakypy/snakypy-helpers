@@ -1,9 +1,10 @@
-import time
 import sys
-from typing import Union, Any
-from snakypy.helpers.decorators import denying_os
-from snakypy.helpers.ansi import NONE, FG, BG, SGR
+import time
 from datetime import date
+from typing import Any, Union
+
+from snakypy.helpers.ansi import BG, FG, NONE, SGR
+from snakypy.helpers.decorators import denying_os
 
 
 @denying_os("nt")

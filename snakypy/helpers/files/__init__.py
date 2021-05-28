@@ -1,2 +1,2 @@
-from .json import read_json, create_json, update_json
-from .generic import create_file, read_file, backup_file
+from .generic import backup_file, create_file, eqversion, read_file
+from .json import create_json, read_json, update_json

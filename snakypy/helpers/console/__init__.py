@@ -1,1 +1,1 @@
-from .display import pick, entry, printer, billboard, credence, loading
+from .display import billboard, credence, entry, loading, pick, printer

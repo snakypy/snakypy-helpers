@@ -1,1 +1,1 @@
-from .removals import rmdir_blank, remove_objects, cleaner
+from .removals import cleaner, remove_objects, rmdir_blank

@@ -1,6 +1,5 @@
 import json
-from os.path import exists
-from os.path import splitext
+from os.path import exists, splitext
 
 
 def read_json(file_path: str) -> dict:

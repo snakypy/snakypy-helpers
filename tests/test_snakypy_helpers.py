@@ -1,28 +1,39 @@
 """Tests for `snakypy` package."""
-import pytest
 import os
-import snakypy
 from contextlib import suppress
-from unittest import TestCase
-from os.path import join, exists
+from os.path import exists, join
 from sys import platform
+from unittest import TestCase
 from unittest.mock import patch
-from snakypy.helpers.decorators import only_linux, silent_errors
-from snakypy.helpers.files import create_file, backup_file, read_file
-from snakypy.helpers.files import create_json
-from snakypy.helpers.files import read_json
-from snakypy.helpers.files import update_json
-from snakypy.helpers.os import cleaner, remove_objects
-from snakypy.helpers.catches import shell, extension
-from snakypy.helpers import printer, FG, BG, SGR
-from snakypy.helpers.calcs import percentage, fibonacci, compound_interest, simple_interest
-from snakypy.helpers.path import create as create_path
-from snakypy.helpers.os import rmdir_blank
-from snakypy.helpers.calcs import bmi
-from snakypy.helpers.subprocess import command, systemctl_is_active
-from snakypy.helpers.catches.finders import find_objects, is_tool, tools_requirements
-from docs.conf import release as release_doc, version as version_doc
+
+import pytest
+from docs.conf import release as release_doc
+from docs.conf import version as version_doc
 from tomlkit import parse as toml_parse
+
+import snakypy
+from snakypy.helpers import BG, FG, SGR, printer
+from snakypy.helpers.calcs import (
+    bmi,
+    compound_interest,
+    fibonacci,
+    percentage,
+    simple_interest,
+)
+from snakypy.helpers.catches import extension, shell
+from snakypy.helpers.catches.finders import find_objects, is_tool, tools_requirements
+from snakypy.helpers.decorators import only_linux, silent_errors
+from snakypy.helpers.files import (
+    backup_file,
+    create_file,
+    create_json,
+    read_file,
+    read_json,
+    update_json,
+)
+from snakypy.helpers.os import cleaner, remove_objects, rmdir_blank
+from snakypy.helpers.path import create as create_path
+from snakypy.helpers.subprocess import command, systemctl_is_active
 
 
 def test_versions():
@@ -43,10 +54,14 @@ def base(tmpdir):
 
 
 def test_create_file(base):
-    forced = create_file(base["content"], join(base["tmp"], base["files"][0]), force=True)
+    forced = create_file(
+        base["content"], join(base["tmp"], base["files"][0]), force=True
+    )
     assert forced is True
     with pytest.raises(FileExistsError):
-        assert create_file(base["content"], join(base["tmp"], base["files"][0]), force=False)
+        assert create_file(
+            base["content"], join(base["tmp"], base["files"][0]), force=False
+        )
 
     return forced
 
@@ -66,7 +81,11 @@ def test_create_file(base):
 
 def test_backup_copy_and_error(base):
     create_file(base["files"][0], join(base["tmp"], base["files"][0]), force=True)
-    backup_file(join(base["tmp"], base["files"][0]), join(base["tmp"], base["files"][0]), date=True)
+    backup_file(
+        join(base["tmp"], base["files"][0]),
+        join(base["tmp"], base["files"][0]),
+        date=True,
+    )
     with pytest.raises(FileNotFoundError):
         cleaner(base["tmp"], "*.txt")
 
@@ -107,7 +126,9 @@ def test_remove_objects(base):
     os.mkdir(join(base["tmp"], "temp_dir"))
     obj = (join(base["tmp"], base["files"][0]), join(base["tmp"], "temp_dir"))
     remove_objects(objects=obj)
-    if not exists(join(base["tmp"], "temp_dir")) and not exists(join(base["tmp"], base["files"][0])):
+    if not exists(join(base["tmp"], "temp_dir")) and not exists(
+        join(base["tmp"], base["files"][0])
+    ):
         assert True
     else:
         assert False
@@ -120,17 +141,23 @@ def test_silent_errors():
 
 def test_fibonacci():
     assert fibonacci(50) == [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-    assert fibonacci(50, ret_text=True) == '0 1 1 2 3 5 8 13 21 34'
+    assert fibonacci(50, ret_text=True) == "0 1 1 2 3 5 8 13 21 34"
 
 
 def test_compound_interest():
-    assert compound_interest(2455, 12, 1) == {'amount': 2766.36, 'fess': 311.36}
-    assert compound_interest(2455, 12, 1, ret_text=True) == 'The amount was: $ 2766.36. The fees were: $ 311.36.'
+    assert compound_interest(2455, 12, 1) == {"amount": 2766.36, "fess": 311.36}
+    assert (
+        compound_interest(2455, 12, 1, ret_text=True)
+        == "The amount was: $ 2766.36. The fees were: $ 311.36."
+    )
 
 
 def test_simple_interest():
-    assert simple_interest(2455, 12, 1) == {'amount': 2749.6, 'fess': 294.6}
-    assert simple_interest(2455, 12, 1, ret_text=True) == 'The amount was: $ 2749.60. The fees were: $ 294.60.'
+    assert simple_interest(2455, 12, 1) == {"amount": 2749.6, "fess": 294.6}
+    assert (
+        simple_interest(2455, 12, 1, ret_text=True)
+        == "The amount was: $ 2749.60. The fees were: $ 294.60."
+    )
 
 
 def test_cleaner_successfully(base):
@@ -143,7 +170,13 @@ def test_cleaner_successfully(base):
 
 
 def test_printer_return():
-    val = printer("Hello, World!", ":D", foreground=FG().BLACK, background=BG().WHITE, sgr=SGR.UNDERLINE)
+    val = printer(
+        "Hello, World!",
+        ":D",
+        foreground=FG().BLACK,
+        background=BG().WHITE,
+        sgr=SGR.UNDERLINE,
+    )
     assert val[0] == "Hello, World!"
     assert val[1] == ":D"
 
@@ -159,13 +192,13 @@ def test_create_json(base):
 def test_read_json(base):
     test_create_json(base)  # Created
     data = read_json(join(base["tmp"], base["files"][1]))
-    assert data['Hello'] == 'World!'
+    assert data["Hello"] == "World!"
 
 
 def test_update_json(base):
     test_create_json(base)  # Created
     data = read_json(join(base["tmp"], base["files"][1]))
-    data['Hello'] = 'Terra!'
+    data["Hello"] = "Terra!"
     assert update_json(join(base["tmp"], base["files"][1]), data) is True
 
 
@@ -204,7 +237,7 @@ def test_read_json_error(base):
 def test_update_json_not_found(base):
     with pytest.raises(FileNotFoundError):
         data = read_json(join(base["tmp"], base["files"][1]))
-        data['Hello'] = 'Marte!'
+        data["Hello"] = "Marte!"
         assert update_json(join(base["tmp"], base["files"][1]), data)
 
 
@@ -213,54 +246,54 @@ def test_percentage():
     whole = 120
     result_v = percentage(perc, whole)
     assert result_v == 6.0
-    result_sum = percentage(perc, whole, operation='+')
+    result_sum = percentage(perc, whole, operation="+")
     assert result_sum == 126.0
-    result_sub = percentage(perc, whole, operation='-')
+    result_sub = percentage(perc, whole, operation="-")
     assert result_sub == 114.00
-    result_log_sum = percentage(perc, whole, operation='+', log=True)
-    assert result_log_sum == f'>> {whole} + {perc}% = 126.00'
-    result_log_sub = percentage(perc, whole, operation='-', log=True)
-    assert result_log_sub == f'>> {whole} - {perc}% = 114.00'
+    result_log_sum = percentage(perc, whole, operation="+", log=True)
+    assert result_log_sum == f">> {whole} + {perc}% = 126.00"
+    result_log_sub = percentage(perc, whole, operation="-", log=True)
+    assert result_log_sub == f">> {whole} - {perc}% = 114.00"
 
 
 def test_file_extension():
     with pytest.raises(TypeError):
-        file = 'None'
-        assert extension(file) == '.txt'
-    file = '/home/file.tar.gz'
-    assert extension(file) == '.gz'
-    assert extension(file, dots=True) == 'tar.gz'
+        file = "None"
+        assert extension(file) == ".txt"
+    file = "/home/file.tar.gz"
+    assert extension(file) == ".gz"
+    assert extension(file, dots=True) == "tar.gz"
 
 
 def test_command_real_time():
-    assert command('ls', ret=True, verbose=True) == 0
+    assert command("ls", ret=True, verbose=True) == 0
 
 
 def test_imc():
     with pytest.raises(AttributeError):
-        bmi('M', -70, 1.70)
-        bmi('F', 70, -1.70)
-        bmi('Male', 70, 1.70)
-        bmi('M', 70, 4.00)
-        bmi('F', 0, 0)
-        bmi('F', 350, 1.50)
-        bmi('', 70, 1.73)
-    result = bmi('M', 70, 1.73)
-    assert result == 'Normal weight.'
-    result = bmi('m', 59.2, 1.80)
-    assert result == 'Under weight.'
-    result = bmi('m', 82.4, 1.69)
-    assert result == 'Overweight.'
-    result = bmi('m', 90.1, 1.62)
-    assert result == 'Obesity.'
-    result = bmi('f', 69.5, 1.68)
-    assert result == 'Normal weight.'
-    result = bmi('f', 45.1, 1.71)
-    assert result == 'Under weight.'
-    result = bmi('f', 83.7, 1.67)
-    assert result == 'Overweight.'
-    result = bmi('f', 83.7, 1.58)
-    assert result == 'Obesity.'
+        bmi("M", -70, 1.70)
+        bmi("F", 70, -1.70)
+        bmi("Male", 70, 1.70)
+        bmi("M", 70, 4.00)
+        bmi("F", 0, 0)
+        bmi("F", 350, 1.50)
+        bmi("", 70, 1.73)
+    result = bmi("M", 70, 1.73)
+    assert result == "Normal weight."
+    result = bmi("m", 59.2, 1.80)
+    assert result == "Under weight."
+    result = bmi("m", 82.4, 1.69)
+    assert result == "Overweight."
+    result = bmi("m", 90.1, 1.62)
+    assert result == "Obesity."
+    result = bmi("f", 69.5, 1.68)
+    assert result == "Normal weight."
+    result = bmi("f", 45.1, 1.71)
+    assert result == "Under weight."
+    result = bmi("f", 83.7, 1.67)
+    assert result == "Overweight."
+    result = bmi("f", 83.7, 1.58)
+    assert result == "Obesity."
 
 
 def test_rmdir_blank(base):
@@ -284,25 +317,25 @@ def test_rmdir_blank(base):
 
 
 class TestBakeProject(TestCase):
-    @patch('snakypy.helpers.console.pick', return_value='python')
+    @patch("snakypy.helpers.console.pick", return_value="python")
     def test_pick_no_index(self, fn):
-        title = 'What is your favorite programming language?'
-        options = ['C', 'C++', 'Java', 'Javascript', 'Python', 'Ruby']
-        self.assertEqual(fn(title, options), 'python')
+        title = "What is your favorite programming language?"
+        options = ["C", "C++", "Java", "Javascript", "Python", "Ruby"]
+        self.assertEqual(fn(title, options), "python")
 
-    @patch('snakypy.helpers.console.pick', return_value=(5, 'python'))
+    @patch("snakypy.helpers.console.pick", return_value=(5, "python"))
     def test_pick_with_index(self, fn):
-        title = 'What is your favorite programming language?'
-        options = ['C', 'C++', 'Java', 'Javascript', 'Python', 'Ruby']
-        self.assertEqual(fn(title, options, index=True), (5, 'python'))
+        title = "What is your favorite programming language?"
+        options = ["C", "C++", "Java", "Javascript", "Python", "Ruby"]
+        self.assertEqual(fn(title, options, index=True), (5, "python"))
         with pytest.raises(AssertionError):
-            self.assertEqual(fn(title, options, index=True), (5, 'python3'))
+            self.assertEqual(fn(title, options, index=True), (5, "python3"))
 
-    @patch('snakypy.helpers.entry', return_value="Snakypy")
+    @patch("snakypy.helpers.entry", return_value="Snakypy")
     def test_entry_set_reply(self, fn):
         self.assertEqual(fn("What's your name?"), "Snakypy")
 
-    @patch('snakypy.helpers.entry', autospec=True)
+    @patch("snakypy.helpers.entry", autospec=True)
     def test_entry_not_set_question(self, fn):
         with pytest.raises(TypeError):
             fn()

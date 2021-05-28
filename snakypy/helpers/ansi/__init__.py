@@ -5,7 +5,6 @@ certain foreground or background color, and font style settings in Ansi.
 """
 import sys
 
-
 # class BG:
 #     """
 #     Class BG (background) that receives colors and ANSI settings in each
