@@ -128,7 +128,7 @@ def eqversion(filepath, version, *, key=("tool", "poetry", "version")):
         filepath: File path "pyproject.toml".
         version: Enter the version found in the "__init__.py" file of the package.
         key: You must pass the key level to access the version on "pyproject.toml".
-             By default, this value is used for Poetry.
+        By default, this value is used for Poetry.
     """
     with suppress(FileNotFoundError):
         parsed = parse(read_file(filepath))
