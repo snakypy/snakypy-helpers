@@ -15,7 +15,6 @@ Welcome to Snakypy Helpers documentation!
    modules
    contributing
    authors
-   changelog
 
 Indices and tables
 ==================
