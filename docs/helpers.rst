@@ -101,6 +101,13 @@ Module "generic"
    :undoc-members:
    :show-inheritance:
 
+Subpackage "helpers.logging"
+-----------------------------
+
+.. automodule:: snakypy.helpers.logging
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Subpackage "helpers.os"
 ---------------------------
