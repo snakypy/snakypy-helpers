@@ -12,11 +12,6 @@
 #
 import os
 import sys
-from os.path import abspath, dirname, join
-
-from tomlkit import parse
-
-from snakypy.helpers.files import read_file
 
 sys.path.insert(0, os.path.abspath('.'))
 
@@ -27,11 +22,9 @@ project = 'snakypy-helpers'
 copyright = '2021, William C. Canin'
 author = 'William C. Canin'
 
-pyproject = parse(read_file(join(dirname(abspath(__file__)), "..", "pyproject.toml")))
-
-version = str(pyproject["tool"]["poetry"]["version"])
+version = "0.2.1"
 # The full version, including alpha/beta/rc tags
-release = str(pyproject["tool"]["poetry"]["version"])
+release = "0.2.1"
 
 
 # -- General configuration ---------------------------------------------------
