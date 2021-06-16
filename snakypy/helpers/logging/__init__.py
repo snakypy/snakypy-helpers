@@ -46,7 +46,7 @@ class Log:
         Args:
             text (str): You should receive a message that will be generated in the log.
 
-            \*args: Specifies other desirable arguments.
+            \\*args: Specifies other desirable arguments.
 
             exc_info (bool): If True, specifies exception information.
 
@@ -55,7 +55,7 @@ class Log:
 
             colorize (bool): Prints the colored log if using the terminal.
 
-            \**kwargs: Specific dictionaries.
+            \\**kwargs: Specific dictionaries.
 
         Returns: None
         """
