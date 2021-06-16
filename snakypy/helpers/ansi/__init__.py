@@ -70,7 +70,12 @@ NONE = return_ansi_or_not("\x1b[0m")
 
 class FG:
     def __init__(
-        self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"
+        self,
+        *,
+        warning_icon="⚠ ",
+        error_icon="✖ ",
+        finish_icon="✔ ",
+        question_icon="➜ ",
     ):
         """
             Class FG (foreground) that receives colors and ANSI settings in each of
@@ -97,10 +102,10 @@ class FG:
         self.CYAN = return_ansi_or_not("\x1b[96m")
         self.WHITE = return_ansi_or_not("\x1b[97m")
 
-        self.WARNING = return_ansi_or_not(f"{self.YELLOW}{warning_icon} ")
-        self.ERROR = return_ansi_or_not(f"{self.RED}{error_icon} ")
-        self.FINISH = return_ansi_or_not(f"{self.GREEN}{finish_icon} ")
-        self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon} ")
+        self.WARNING = return_ansi_or_not(f"{self.YELLOW}{warning_icon}")
+        self.ERROR = return_ansi_or_not(f"{self.RED}{error_icon}")
+        self.FINISH = return_ansi_or_not(f"{self.GREEN}{finish_icon}")
+        self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon}")
 
 
 class SGR:
@@ -120,7 +125,12 @@ class SGR:
 
 class BG:
     def __init__(
-        self, *, warning_icon="⚠", error_icon="✖", finish_icon="✔", question_icon="➜"
+        self,
+        *,
+        warning_icon="⚠ ",
+        error_icon="✖ ",
+        finish_icon="✔ ",
+        question_icon="➜ ",
     ):
         """
             Class BG (background) that receives colors and ANSI settings in each
@@ -141,10 +151,10 @@ class BG:
         self.CYAN = return_ansi_or_not("\x1b[106m")
         self.WHITE = return_ansi_or_not("\x1b[107m")
 
-        self.WARNING = return_ansi_or_not(f"{self.YELLOW}{warning_icon} ")
-        self.ERROR = return_ansi_or_not(f"{self.RED}{error_icon} ")
-        self.FINISH = return_ansi_or_not(f"{self.GREEN}{finish_icon} ")
-        self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon} ")
+        self.WARNING = return_ansi_or_not(f"{self.YELLOW}{warning_icon}")
+        self.ERROR = return_ansi_or_not(f"{self.RED}{error_icon}")
+        self.FINISH = return_ansi_or_not(f"{self.GREEN}{finish_icon}")
+        self.QUESTION = return_ansi_or_not(f"{self.CYAN}{question_icon}")
 
 
 __all__ = ["NONE", "FG", "BG", "SGR"]
