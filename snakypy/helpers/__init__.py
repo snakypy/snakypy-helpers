@@ -13,16 +13,16 @@ For more information, access: 'https://github.com/snakypy/snakypy-helpers'
 """
 from os.path import abspath, dirname, join
 
-import snakypy.helpers.ansi
+import snakypy.helpers.ansi  # noqa: F401
 import snakypy.helpers.calcs
 import snakypy.helpers.catches
 import snakypy.helpers.console
 import snakypy.helpers.decorators
 import snakypy.helpers.files
 import snakypy.helpers.os
-import snakypy.helpers.path
-from snakypy.helpers.ansi import BG, FG, NONE, SGR
-from snakypy.helpers.console import entry, pick, printer
+import snakypy.helpers.path  # noqa: F401
+from snakypy.helpers.ansi import BG, FG, NONE, SGR  # noqa: F401
+from snakypy.helpers.console import entry, pick, printer  # noqa: F401
 from snakypy.helpers.files import eqversion
 
 __info__ = {
@@ -31,7 +31,7 @@ __info__ = {
     "email": "contact.snakypy@gmail.com",
     "website": "https://snakypy.github.io",
     "github": "https://github.com/snakypy",
-    "version": "0.2.1",
+    "version": "0.2.2",
 }
 
 # Keep the versions the same on pyproject.toml and __init__.py

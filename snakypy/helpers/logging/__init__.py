@@ -80,6 +80,7 @@ class Log:
                     format=self.formatted,
                     datefmt=self.date_format,
                     level=logging.INFO,
+                    force=True,
                 )
 
                 # Verify message exception or not
