@@ -176,4 +176,31 @@ def compound_interest(
     return format_dict
 
 
-__all__ = ["percentage", "fibonacci", "compound_interest", "simple_interest"]
+def trunc(number, n_digits=None, *, is_round=False):
+    """
+        Function to truncate float numbers
+
+        >>> from snakypy import helpers
+        >>> helpers.calcs.trunc(1.9989, 2)
+        1.99
+        >>> helpers.calcs.trunc(1.9989, 2, is_round=True)
+        2.0
+
+    Args:
+        number (float): Must receive a float number
+
+        n_digits (int): An integer must be passed to define the number of places after the comma.
+
+        is_round (bool): If the value is TRue, round the number.
+
+        Returns:
+            Returns a float number
+    """
+    if is_round:
+        return round(number, n_digits)
+    if n_digits and not is_round:
+        return int(number * 10 ** n_digits) / 10 ** n_digits
+    return number
+
+
+__all__ = ["percentage", "fibonacci", "compound_interest", "simple_interest", "trunc"]
