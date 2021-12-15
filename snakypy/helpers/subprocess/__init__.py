@@ -86,7 +86,7 @@ def super_command(cmd: str) -> Union[Optional[str], None]:
             )
             communicate = p.communicate(super_password)
 
-            if "failure" not in communicate[1].split():
+            if "su:" not in communicate[1].split():
                 return communicate[0]
             printer("Password incorrect.", foreground=FG().WARNING)
     except KeyboardInterrupt:
