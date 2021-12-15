@@ -8,7 +8,7 @@ license = "MIT license"
 name = "snakypy-helpers"
 readme = "README.rst"
 repository = "https://github.com/snakypy/snakypy-helpers"
-version = "0.2.2"
+version = "0.3.0"
 
 packages = [
   {include = "snakypy"},
