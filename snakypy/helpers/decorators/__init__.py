@@ -42,7 +42,7 @@ def denying_os(*os_name, is_func=False) -> Any:
                 if platform.system() == item:
                     msg = f"This software is not compatible with the operating system: {os_name_}."
                     if is_func:
-                        msg = f'This function "{func.__name__}" is not supported by the operating system: {os_name_}'
+                        msg = f'The function "{func.__name__}" is not supported by the operating system: {os_name_}'
                     raise Exception(msg)
 
             return func(*args, **kwargs)
