@@ -2,7 +2,6 @@
 import os
 from contextlib import suppress
 from os.path import exists, join
-from sys import platform
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -20,9 +19,9 @@ from snakypy.helpers.calcs import (
     percentage,
     simple_interest,
 )
-from snakypy.helpers.catches import extension, shell
+from snakypy.helpers.catches import extension
 from snakypy.helpers.catches.finders import find_objects, is_tool, tools_requirements
-from snakypy.helpers.decorators import only_linux, silent_errors
+from snakypy.helpers.decorators import silent_errors
 from snakypy.helpers.files import (
     backup_file,
     create_file,
