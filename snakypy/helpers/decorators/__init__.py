@@ -14,9 +14,11 @@ def denying_os(*os_name, is_func=False) -> Any:
 
         from snakypy.helpers.decorators import denying_os
 
-        @denying_os("Windows", "Darwin", is_func=True)
-        def foo():
-            print("Hi")
+        @denying_os("Windows", "macOS", is_func=True)
+        def systemd_analyze(opt):
+            from subprocess import call
+            call(["systemd-analyze", opt)
+        systemd_analyze("blame")
 
     Args:
         is_func: (bool): If it is False, it returns a message stating that the operating
@@ -24,25 +26,24 @@ def denying_os(*os_name, is_func=False) -> Any:
                          is incompatible with the OS.
         os_name (str): You must receive the os.name of the operating system to be banned.
                        Windows = Windows
-                       Darwin = macOS
+                       macOS = Darwin
                        Linux = Linux
     """
 
     def decorator(func: Any) -> Any:
         @wraps(func)
         def wrapper(*args, **kwargs):
+            types = ("Windows", "Linux", "macOS")
             for item in os_name:
-
-                # String message
-                os_name_ = item
-                if item == "Darwin":
-                    os_name_ = "macOS"
-
-                # Denying
-                if platform.system() == item:
-                    msg = f"This software is not compatible with the operating system: {os_name_}."
+                if item not in types:
+                    raise TypeError(
+                        f'Type error in decorator "{denying_os.__name__}". Options: {", ".join(types)}'
+                    )
+                os_name_ = "Darwin" if item == "macOS" else item
+                if platform.system() == os_name_:
+                    msg = f"This software is not compatible with the operating system: {item}."
                     if is_func:
-                        msg = f'The function "{func.__name__}" is not supported by the operating system: {os_name_}'
+                        msg = f'The function "{func.__name__}" is not supported by the operating system: {item}'
                     raise Exception(msg)
 
             return func(*args, **kwargs)
