@@ -2,8 +2,6 @@ from os import walk
 from os.path import exists, isdir, join
 from shutil import which
 
-from snakypy.helpers.decorators import only_linux
-
 
 def find_objects(
     directory: str, /, files: tuple = (), folders: tuple = (), by_extension: tuple = ()
@@ -60,10 +58,9 @@ def find_objects(
         )
 
 
-@only_linux
 def is_tool(*args: str) -> bool:
     """
-        Searches if a tool is installed on the machine. (Linux systems only)
+        Searches if a tool is installed on the machine.
 
         >>> from snakypy import helpers
         >>> helpers.catches.is_tool("ls")
@@ -82,7 +79,6 @@ def is_tool(*args: str) -> bool:
     return False
 
 
-@only_linux
 def tools_requirements(*args) -> bool:
     """
         Search required tools if you can not burst an exception
