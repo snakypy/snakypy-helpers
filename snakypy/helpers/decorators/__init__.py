@@ -1,35 +1,50 @@
-import os
 import platform
+from concurrent.futures import ThreadPoolExecutor
 from contextlib import suppress
 from datetime import datetime
 from functools import wraps
 from typing import Any
 
 
-def denying_os(os_name) -> Any:
+def denying_os(*os_name, is_func=False) -> Any:
     """
     Decorator to ban an operating system from software through os.name.
 
     .. code-block:: python
 
-        from snakypy.helpers.utils.decorators import denying_os
+        from snakypy.helpers.decorators import denying_os
 
-        @denying_os("nt")
+        @denying_os("Windows", "Darwin", is_func=True)
         def foo():
             print("Hi")
 
     Args:
+        is_func: (bool): If it is False, it returns a message stating that the operating
+                         system is incompatible, if it is True, it returns that a function/method
+                         is incompatible with the OS.
         os_name (str): You must receive the os.name of the operating system to be banned.
-                       Windows = nt
-                       Linux/Mac OS = posix
+                       Windows = Windows
+                       Darwin = macOS
+                       Linux = Linux
     """
 
     def decorator(func: Any) -> Any:
         @wraps(func)
         def wrapper(*args, **kwargs):
-            if os.name == os_name:
-                msg = f"This software is not compatible with this ({os_name}) operating system."
-                raise Exception(msg)
+            for item in os_name:
+
+                # String message
+                os_name_ = item
+                if item == "Darwin":
+                    os_name_ = "macOS"
+
+                # Denying
+                if platform.system() == item:
+                    msg = f"This software is not compatible with the operating system: {os_name_}."
+                    if is_func:
+                        msg = f'This function "{func.__name__}" is not supported by the operating system: {os_name_}'
+                    raise Exception(msg)
+
             return func(*args, **kwargs)
 
         return wrapper
@@ -124,4 +139,34 @@ def silent_errors(func: Any) -> Any:
     return wrapper
 
 
-__all__ = ["only_linux", "denying_os", "runtime", "silent_errors"]
+def asynchronous():
+    """
+        Decorator for asynchronous execution application inside a function or method
+
+        .. code-block:: python
+
+            from snakypy.helpers.utils.decorators import asynchronous
+
+            @asynchronous()
+            def foo():
+                func1()
+                func2()
+                func3()
+
+            foo()
+    Returns:
+
+    """
+
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            executor = ThreadPoolExecutor()
+            executor.submit(func, *args, **kwargs)
+
+        return wrapper
+
+    return decorator
+
+
+__all__ = ["only_linux", "denying_os", "runtime", "silent_errors", "asynchronous"]
