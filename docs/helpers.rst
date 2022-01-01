@@ -28,6 +28,23 @@ Module "math"
    :undoc-members:
    :show-inheritance:
 
+Subpackage "helpers.checking"
+------------------------------
+
+.. automodule:: snakypy.helpers.checking
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module "generic"
+~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: snakypy.helpers.checking.generic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 Subpackage "helpers.catches"
 ----------------------------
 
@@ -121,6 +138,14 @@ Module "removals"
 ~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: snakypy.helpers.os.removals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module "modifiers"
+~~~~~~~~~~~~~~~~~~~
+
+.. automodule:: snakypy.helpers.os.modifiers
    :members:
    :undoc-members:
    :show-inheritance:
