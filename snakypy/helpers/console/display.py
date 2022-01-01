@@ -7,7 +7,7 @@ from snakypy.helpers.ansi import BG, FG, NONE, SGR
 from snakypy.helpers.decorators import denying_os
 
 
-@denying_os("nt")
+@denying_os("Windows", is_func=True)
 def printer(
     *args: str,
     foreground: str = "",
@@ -74,7 +74,7 @@ def printer(
         raise AttributeError("Invalid parameter passed")
 
 
-@denying_os("nt")
+@denying_os("Windows", is_func=True)
 def entry(
     text,
     *,
