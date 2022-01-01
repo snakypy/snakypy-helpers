@@ -154,6 +154,8 @@ def asynchronous():
                 func3()
 
             foo()
+
+
     Returns:
 
     """
