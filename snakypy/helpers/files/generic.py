@@ -176,12 +176,11 @@ def filesize(file: str, unit: str = "") -> float:
             filesize("file.tar.gz", unit="mb")
             filesize("file.iso", unit="gb")
 
+
     Args:
-        file (str):  Inform the file with its path.
-        unit (str): If None, it returns the size in bytes, otherwise it will have the options:
-                     kb = Kilobyte
-                     mb = megabytes
-                     gb = gigabytes
+        file (str): Inform the file with its path.
+        unit (str): If None, it returns the size in bytes, otherwise it will have the options: kb = Kilobyte,
+        mb = megabytes, gb = gigabytes
 
     Returns:
         float

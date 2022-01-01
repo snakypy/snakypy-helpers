@@ -161,6 +161,12 @@ def turned_palindrome(word: str) -> Union[bool, str]:
 def is_hidden(filepath: str) -> Union[bool, None]:
     """
         Checks if a file or folder is hidden
+
+        .. code-block:: python
+
+            from snakypy.helpers.checking import is_hidden
+            is_hidden("/home/user/.bashrc")
+
     Args:
         filepath (str):
 

@@ -12,6 +12,8 @@ def wtm_state(value: str = "enabled") -> None:
 
             from snakypy.helpers.os import wtm_state
             wtm_state(state="disable")
+
+
     Args:
         value (str): If "disabled", disable task manager, if "enabled" enable
 
