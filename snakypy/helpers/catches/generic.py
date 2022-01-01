@@ -1,46 +1,5 @@
 import re
-from os import environ, popen
 from os.path import splitext
-
-from snakypy.helpers.decorators import only_linux
-
-
-@only_linux
-def whoami() -> str:
-    """
-        Get the currently logged in user.
-
-        >>> from snakypy import helpers
-        >>> helpers.catches.whoami()
-        'william'
-
-    Returns:
-         [str] -- Returns the name of the current user.
-    """
-    return str(popen("whoami").read()).replace("\n", "")
-
-
-@only_linux
-def shell() -> str:
-    """
-    Function to get the currently activated shell.
-
-    >>> from snakypy import helpers
-    >>> helpers.catches.shell()
-    'sh'
-
-    Returns:
-        [str] -- Returns the name of the current shell.
-    """
-    try:
-        get_shell = environ["SHELL"]
-    except KeyError:
-        return ""
-
-    if "/" in get_shell:
-        return get_shell.strip("\n").strip("").split("/")[-1]
-
-    return get_shell
 
 
 def extension(filename: str, dots: bool = False) -> str:
@@ -53,7 +12,7 @@ def extension(filename: str, dots: bool = False) -> str:
     >>> helpers.catches.extension(file, dots=True)
     'tar.gz'
 
-    or using from
+    or
 
     >>> from snakypy.helpers.catches import extension
     >>> file = '/tmp/file.tar.gz'
@@ -85,4 +44,4 @@ def extension(filename: str, dots: bool = False) -> str:
         return ext
 
 
-__all__ = ["whoami", "shell", "extension"]
+__all__ = ["extension"]

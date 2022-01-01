@@ -4,7 +4,7 @@ from typing import Any, Optional, Union
 
 from snakypy.helpers.ansi import FG, NONE
 from snakypy.helpers.console import printer
-from snakypy.helpers.decorators import only_linux
+from snakypy.helpers.decorators import denying_os, only_linux
 
 
 # The use of static typing in this function in conjunction with "inter", caused
@@ -57,7 +57,7 @@ def command(
     return -1
 
 
-@only_linux
+@denying_os("Windows", is_func=True)
 def super_command(cmd: str) -> Union[Optional[str], None]:
     """
         Allows to execute superuser command in shell.
@@ -86,7 +86,7 @@ def super_command(cmd: str) -> Union[Optional[str], None]:
             )
             communicate = p.communicate(super_password)
 
-            if "failure" not in communicate[1].split():
+            if "su:" not in communicate[1].split():
                 return communicate[0]
             printer("Password incorrect.", foreground=FG().WARNING)
     except KeyboardInterrupt:

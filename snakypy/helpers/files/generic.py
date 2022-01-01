@@ -1,6 +1,6 @@
 from contextlib import suppress
 from datetime import datetime
-from os.path import exists
+from os.path import exists, getsize
 from shutil import SameFileError, copyfile
 from typing import Any, List, Union
 
@@ -164,4 +164,36 @@ def eqversion(filepath, version, *, key=("tool", "poetry", "version")):
             create_file(dumps(parsed), filepath, force=True)
 
 
-__all__ = ["read_file", "create_file", "backup_file", "eqversion"]
+def filesize(file: str, unit: str = "") -> float:
+    """
+        Function to return the size of a file in bytes, kilobyte, megabytes and gigabytes
+
+        .. code-block:: python
+
+            from snakypy.helpers.files import filesize
+            filesize("file.txt")
+            filesize("file.sh", unit="kb")
+            filesize("file.tar.gz", unit="mb")
+            filesize("file.iso", unit="gb")
+
+
+    Args:
+        file (str): Inform the file with its path.
+        unit (str): If None, it returns the size in bytes, otherwise it will have the options: kb = Kilobyte,
+        mb = megabytes, gb = gigabytes
+
+    Returns:
+        float
+    """
+    size = getsize(file)
+    if unit.lower() == "kb":
+        return round(size / 1024, 3)
+    elif unit.lower() == "mb":
+        return round(size / (1024 * 1024), 3)
+    elif unit.lower() == "gb":
+        return round(size / (1024 * 1024 * 1024), 3)
+    else:
+        return size
+
+
+__all__ = ["read_file", "create_file", "backup_file", "eqversion", "filesize"]
