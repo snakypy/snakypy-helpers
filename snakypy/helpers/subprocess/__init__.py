@@ -1,6 +1,7 @@
 from getpass import getpass
-from subprocess import PIPE, Popen
+from subprocess import PIPE, Popen, run
 from typing import Any, Optional, Union
+from shutil import which
 
 from snakypy.helpers.ansi import FG, NONE
 from snakypy.helpers.console import printer
@@ -11,6 +12,8 @@ from snakypy.helpers.decorators import denying_os, only_linux
 # errors when using Mypy, perhaps because at run time the inter would always return None,
 # so it is recommended in the file mypy.ini, to use the option "strict_optional = False".
 # Ref: https://stackoverflow.com/questions/57350490/mypy-complaining-that-popen-stdout-does-not-have-a-readline
+
+
 def command(
     cmd: str,
     *args: Any,
@@ -25,7 +28,7 @@ def command(
         execution in real time.
 
         >>> from snakypy.helpers.subprocess import command
-        >>> url = 'git clone https://github.com/snakypy/snakypy.git'
+        >>> url = 'git clone https://github.com/snakypy/snakypy-helpers.git'
         >>> command(url, verbose=True)
 
     Args:
@@ -58,9 +61,65 @@ def command(
 
 
 @denying_os("Windows", is_func=True)
+def command_sudo(
+    commands: list, sudo_msg: str = "[ Enter the machine sudo password ]"
+) -> bool:
+    """
+        Run the command with sudo. It is the improved version of "super_command",
+        which will replace it.
+        If the password is entered wrong, it repeats the call again.
+        Compatible with Linux and macOS.
+
+        >>> from snakypy.helpers.subprocess import command_sudo
+        >>> cmd_list = ["python --version | cut -d' ' -f1", "mkdir -p /tmp/snakypy"]
+        >>> command_sudo(cmd_list)
+        ''
+
+    Args:
+        commands: Receives a list of commands.
+        sudo_msg: Header message before entering password.
+
+    Returns:
+        [bool]: Returns boolean.
+    """
+    try:
+        check: bool = False
+        printer(sudo_msg, foreground=FG().WARNING)
+        while not check:
+            run(["sudo", "-k"])
+            if which("faillock"):
+                run(["faillock", "--reset"])
+            get_pass = getpass()
+            for cmd in commands:
+                p = Popen(
+                    "echo {} | sudo -S {};".format(get_pass, cmd),
+                    stdin=PIPE,
+                    stderr=PIPE,
+                    stdout=PIPE,
+                    universal_newlines=True,
+                    shell=True,
+                )
+                p.communicate(get_pass + "\n")
+                if p.returncode != 0:
+                    printer("Error in password authentication.", foreground=FG().ERROR)
+                    break
+                else:
+                    check = True
+        return check
+    except KeyboardInterrupt:
+        printer("Aborted by user.", foreground=FG().WARNING)
+        return False
+    except PermissionError:
+        raise PermissionError(
+            f"{command_sudo.__name__}: No permission to run this command"
+        )
+
+
+@only_linux
 def super_command(cmd: str) -> Union[Optional[str], None]:
     """
         Allows to execute superuser command in shell.
+        Compatible ONLY with Linux.
 
         >>> from snakypy.helpers.subprocess import super_command
         >>> super_command("python --version | cut -d' ' -f1")
@@ -72,6 +131,9 @@ def super_command(cmd: str) -> Union[Optional[str], None]:
     Returns:
         [str]: Returns the result of the command if it has.
     """
+    printer(
+        f'[ WARN ] This function ({super_command.__name__}) will be discontinued. Use the "command_sudo".'
+    )
     try:
         while True:
             super_password = getpass()
@@ -120,4 +182,4 @@ def systemctl_is_active(service: str) -> Union[tuple, None]:
         return None
 
 
-__all__ = ["command", "super_command", "systemctl_is_active"]
+__all__ = ["command", "command_sudo", "super_command", "systemctl_is_active"]
