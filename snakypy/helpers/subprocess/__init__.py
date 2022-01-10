@@ -1,12 +1,11 @@
 from getpass import getpass
+from shutil import which
 from subprocess import PIPE, Popen, run
 from typing import Any, Optional, Union
-from shutil import which
 
 from snakypy.helpers.ansi import FG, NONE
 from snakypy.helpers.console import printer
 from snakypy.helpers.decorators import denying_os, only_linux
-
 
 # The use of static typing in this function in conjunction with "inter", caused
 # errors when using Mypy, perhaps because at run time the inter would always return None,
